@@ -14,7 +14,8 @@ if not SECRET_KEY or SECRET_KEY.startswith('clave-secreta-desarrollo'):
 
 # Allowed hosts (Render proporciona el dominio por defecto)
 ALLOWED_HOSTS = [h.strip() for h in
-                 os.getenv('DJANGO_ALLOWED_HOSTS', 'beauty-shop.onrender.com').split(',')
+                 os.getenv('DJANGO_ALLOWED_HOSTS',
+                           'shop-4zw8.onrender.com').split(',')
                  if h.strip()]
 if not ALLOWED_HOSTS:
     raise ValueError("DJANGO_ALLOWED_HOSTS no está definido correctamente.")
@@ -31,7 +32,10 @@ LOGIN_REDIRECT_URL = '/'
 
 # Configuración de la base de datos (Render proporciona DATABASE_URL)
 DATABASES = {
-    'default': dj_database_url.config(conn_max_age=600)
+    'default': dj_database_url.config(
+        default=os.getenv('DATABASE_URL'),
+        conn_max_age=600
+    )
 }
 
 # Archivos estáticos y media
@@ -81,7 +85,7 @@ SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 SECURE_HSTS_PRELOAD = True
 
 # CORS (maneja valores vacíos sin lanzar error)
-CORS_ALLOWED_ORIGINS = os.getenv('CORS_ALLOWED_ORIGINS', '')
+CORS_ALLOWED_ORIGINS = os.getenv('CORS_ALLOWED_ORIGINS', 'https://shop-4zw8.onrender.com')
 if CORS_ALLOWED_ORIGINS:
     CORS_ALLOWED_ORIGINS = CORS_ALLOWED_ORIGINS.split(',')
 else:
