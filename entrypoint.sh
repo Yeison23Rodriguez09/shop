@@ -1,6 +1,13 @@
 #!/bin/sh
 
-python manage.py migrate
+# Salir de inmediato si un comando falla
+set -e
+
+echo "==> Ejecutando Migraciones..."
+python manage.py migrate --noinput
+
+echo "==> Recopilando estáticos..."
 python manage.py collectstatic --noinput
 
-gunicorn config.wsgi:application --bind 0.0.0.0:8000
+echo "==> Iniciando Gunicorn..."
+exec gunicorn config.wsgi:application --bind 0.0.0.0:$PORT
