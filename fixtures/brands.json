@@ -1,0 +1,92 @@
+[
+  {
+    "model": "catalog.brand",
+    "pk": 1,
+    "fields": {
+      "name": "Hikvision",
+      "country": "China",
+      "website": "https://www.hikvision.com",
+      "logo": ""
+    }
+  },
+  {
+    "model": "catalog.brand",
+    "pk": 2,
+    "fields": {
+      "name": "Dahua",
+      "country": "China",
+      "website": "https://www.dahuasecurity.com",
+      "logo": ""
+    }
+  },
+  {
+    "model": "catalog.brand",
+    "pk": 3,
+    "fields": {
+      "name": "Bosch Security",
+      "country": "Alemania",
+      "website": "https://www.boschsecurity.com",
+      "logo": ""
+    }
+  },
+  {
+    "model": "catalog.brand",
+    "pk": 4,
+    "fields": {
+      "name": "Axis Communications",
+      "country": "Suecia",
+      "website": "https://www.axis.com",
+      "logo": ""
+    }
+  },
+  {
+    "model": "catalog.brand",
+    "pk": 5,
+    "fields": {
+      "name": "Hanwha Vision",
+      "country": "Corea del Sur",
+      "website": "https://www.hanwhavision.com",
+      "logo": ""
+    }
+  },
+  {
+    "model": "catalog.brand",
+    "pk": 6,
+    "fields": {
+      "name": "Honeywell",
+      "country": "Estados Unidos",
+      "website": "https://www.honeywellsecurity.com",
+      "logo": ""
+    }
+  },
+  {
+    "model": "catalog.brand",
+    "pk": 7,
+    "fields": {
+      "name": "ZKTeco",
+      "country": "China",
+      "website": "https://www.zkteco.com",
+      "logo": ""
+    }
+  },
+  {
+    "model": "catalog.brand",
+    "pk": 8,
+    "fields": {
+      "name": "Paradox",
+      "country": "Canadá",
+      "website": "https://www.paradox.com",
+      "logo": ""
+    }
+  },
+  {
+    "model": "catalog.brand",
+    "pk": 9,
+    "fields": {
+      "name": "Risco Group",
+      "country": "Israel",
+      "website": "https://www.riscogroup.com",
+      "logo": ""
+    }
+  }
+]

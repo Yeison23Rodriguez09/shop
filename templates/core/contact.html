@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block title %}Contacto — Nexo YR Secure{% endblock %}
+
+{% block content %}
+<div class="ares-page-header">
+  <div class="container">
+    <h1>Contacto</h1>
+    <p>Solicita una cotización o escríbenos. Un asesor te responde en menos de 24 horas.</p>
+  </div>
+</div>
+
+<div class="container pb-5">
+  <div class="row g-5">
+    <div class="col-lg-4">
+      <div class="ares-sidebar">
+        <h6>Información de contacto</h6>
+        <p class="mb-3"><i class="fa fa-map-marker-alt text-accent me-2"></i>Colombia</p>
+        <p class="mb-3"><a href="https://wa.me/573114879338" target="_blank" rel="noopener" style="color:inherit;text-decoration:none"><i class="fab fa-whatsapp text-accent me-2"></i>+57 311 487 9338</a></p>
+        <p class="mb-3"><i class="fa fa-envelope text-accent me-2"></i>info@aresseguridad.com</p>
+        <hr class="ares">
+        <h6>Horario</h6>
+        <p class="mb-1" style="font-size:.85rem">Lun — Vie: 8:00 AM — 6:00 PM</p>
+        <p style="font-size:.85rem">Sáb: 9:00 AM — 1:00 PM</p>
+        <hr class="ares">
+        <h6>Servicios</h6>
+        <a href="{% url 'catalog:product_list' %}?tipo=service">Ver todos los servicios →</a>
+      </div>
+    </div>
+
+    <div class="col-lg-8">
+      <div style="background:var(--ares-gray);border:1px solid var(--ares-steel);border-radius:4px;padding:2rem;">
+        <h5 style="font-family:'Rajdhani',sans-serif;font-size:1.2rem;color:var(--ares-white);letter-spacing:1px;text-transform:uppercase;margin-bottom:1.5rem">Envíanos un mensaje</h5>
+        <form method="post">
+          {% csrf_token %}
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label class="form-label">Nombre completo</label>
+              <input type="text" name="name" class="form-control" required placeholder="Tu nombre">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Correo electrónico</label>
+              <input type="email" name="email" class="form-control" required placeholder="tu@correo.com">
+            </div>
+            <div class="col-12">
+              <label class="form-label">Teléfono</label>
+              <input type="tel" name="phone" class="form-control" placeholder="+57 300 000 0000">
+            </div>
+            <div class="col-12">
+              <label class="form-label">Mensaje</label>
+              <textarea name="message" class="form-control" rows="5" required placeholder="Describe lo que necesitas..."></textarea>
+            </div>
+            <div class="col-12">
+              <button type="submit" class="btn-ares w-100" style="padding:.8rem">Enviar mensaje</button>
+            </div>
+          </div>
+        </form>
+
+        <!-- Contacto directo por WhatsApp -->
+        <div class="text-center mt-4 pt-4" style="border-top:1px solid var(--border-color);">
+          <p class="text-silver mb-3">¿Prefieres una respuesta inmediata?</p>
+          <a href="https://wa.me/573114879338?text=Hola%20Nexo%20YR%20Secure%2C%20quiero%20más%20información"
+             target="_blank" rel="noopener"
+             style="display:inline-block;background:#25D366;color:#fff;font-weight:700;padding:.9rem 2.4rem;border-radius:14px;text-decoration:none;font-size:1.05rem;box-shadow:0 10px 28px rgba(37,211,102,.4);">
+            <i class="fab fa-whatsapp me-2"></i>Contactar por WhatsApp
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

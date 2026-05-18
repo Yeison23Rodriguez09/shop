@@ -1,0 +1,4 @@
+-r base.txt
+
+# Producción: las dependencias de runtime viven en base.txt
+# (gunicorn, whitenoise, psycopg2-binary ya están incluidos allí).

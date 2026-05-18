@@ -1,0 +1,46 @@
+<!-- Resultados de búsqueda -->
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Resultados para "{{ query }}"{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+
+    {% if query %}
+        <h1 class="mb-4">Resultados de búsqueda para: <span class="text-primary">"{{ query }}"</span></h1>
+    {% else %}
+        <h1 class="mb-4">Por favor, introduce un término de búsqueda.</h1>
+    {% endif %}
+
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+        {% for product in results %}
+            <div class="col">
+                <div class="card h-100 shadow-sm product-card">
+                    <a href="{{ product.get_absolute_url }}">
+                        {% if product.get_image %}
+                            <img src="{{ product.get_image }}" class="card-img-top" alt="{{ product.name }}" loading="lazy">
+                        {% else %}
+                            <div class="featured-img"><div class="placeholder-icon">{% if product.is_service %}🔧{% else %}📦{% endif %}</div></div>{% comment %}sin imagen{% endcomment %}
+                        {% endif %}
+                    </a>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ product.name }}</h5>
+                        <p class="card-text text-muted">${{ product.price|floatformat:2 }}</p>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            {% if query %}
+            <div class="col-12">
+                <div class="alert alert-warning">
+                    <p class="mb-0">No se encontraron productos que coincidan con tu búsqueda.</p>
+                    <p class="mb-0">Intenta con otros términos o <a href="{% url 'catalog:lista_productos' %}" class="alert-link">explora nuestro catálogo completo</a>.</p>
+                </div>
+            </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+
+    </div>
+{% endblock %}

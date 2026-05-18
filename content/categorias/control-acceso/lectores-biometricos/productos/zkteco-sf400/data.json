@@ -1,0 +1,11 @@
+{
+  "slug": "zkteco-sf400",
+  "name": "Lector Biométrico ZKTeco SF400",
+  "price": 450000,
+  "stock": 12,
+  "sku": "SF400",
+  "brand": "ZKTeco",
+  "description": "1500 huellas, 50 000 eventos. LCD 2.8\", huella/tarjeta/PIN. Wiegand, TCP/IP, USB, timbre y reportes.",
+  "images": [],
+  "active": true
+}

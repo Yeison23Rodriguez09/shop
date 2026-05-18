@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}Ingresar — Nexo YR Secure{% endblock %}
+
+{% block content %}
+<!-- Login (users app): formulario centrado con blobs de fondo -->
+<div class="auth-wrap" style="min-height:calc(100vh - 140px);display:flex;align-items:center;justify-content:center;padding:3rem 1rem;">
+  <div class="auth-box" style="padding:2.6rem;width:100%;max-width:440px;">
+
+    <a class="auth-logo" href="{% url 'core:home' %}"
+       style="font-family:'Rajdhani',sans-serif;font-size:1.9rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;text-decoration:none;display:block;text-align:center;">
+      Nexo YR Secure
+    </a>
+    <p class="text-silver text-center" style="font-size:.8rem;letter-spacing:2px;text-transform:uppercase;margin:.4rem 0 2rem;">
+      Iniciar sesión
+    </p>
+
+    {% if form.non_field_errors %}
+      <div class="alert-err mb-3">{{ form.non_field_errors }}</div>
+    {% endif %}
+
+    <form method="post" novalidate>
+      {% csrf_token %}
+      <div class="mb-3">
+        <label for="id_username" class="form-label">Correo o usuario</label>
+        <input type="text" name="username" id="id_username" class="form-control" required autofocus>
+      </div>
+      <div class="mb-4">
+        <label for="id_password" class="form-label">Contraseña</label>
+        <input type="password" name="password" id="id_password" class="form-control" required>
+      </div>
+      <button type="submit" class="btn-auth w-100"><i class="fa fa-sign-in-alt me-2"></i>Ingresar</button>
+    </form>
+
+    <hr class="ares" style="margin:1.5rem 0;">
+    <div class="text-center" style="font-size:.85rem;color:var(--text-muted);">
+      <a href="{% url 'account_signup' %}" style="color:var(--accent-cyan);">¿No tienes cuenta? Regístrate</a><br>
+      <a href="{% url 'account_reset_password' %}" class="auth-link" style="color:var(--text-muted);">¿Olvidaste tu contraseña?</a>
+    </div>
+
+  </div>
+</div>
+{% endblock %}

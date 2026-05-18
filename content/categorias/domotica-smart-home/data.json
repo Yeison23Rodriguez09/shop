@@ -1,0 +1,8 @@
+{
+  "name": "Domotica / Smart Home",
+  "slug": "domotica-smart-home",
+  "description": "Automatizacion del hogar: dispositivos inteligentes y control por app o voz.",
+  "icon": "fa-house-signal",
+  "order": 5,
+  "is_active": true
+}

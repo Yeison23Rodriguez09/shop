@@ -1,0 +1,8 @@
+{
+  "name": "Energia y Respaldo",
+  "slug": "energia-respaldo",
+  "description": "UPS, reguladores, baterias y sistemas de respaldo electrico.",
+  "icon": "fa-bolt",
+  "order": 6,
+  "is_active": true
+}

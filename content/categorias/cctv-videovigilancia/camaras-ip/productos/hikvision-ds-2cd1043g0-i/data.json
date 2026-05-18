@@ -1,0 +1,11 @@
+{
+  "slug": "hikvision-ds-2cd1043g0-i",
+  "name": "Cámara IP Bullet 4MP Hikvision DS-2CD1043G0-I",
+  "price": 380000,
+  "stock": 18,
+  "sku": "DS-2CD1043G0-I",
+  "brand": "Hikvision",
+  "description": "Cámara IP tipo bala 4MP (2560×1440) con IR de 30 m. Compatible con H.265+ que reduce ancho de banda hasta 70%. PoE 802.3af, carcasa metálica IP67 para exteriores. Detección de movimiento por software con notificaciones push vía Hik-Connect.",
+  "images": [],
+  "active": true
+}

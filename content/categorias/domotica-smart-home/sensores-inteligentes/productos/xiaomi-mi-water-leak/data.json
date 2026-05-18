@@ -1,0 +1,11 @@
+{
+  "slug": "xiaomi-mi-water-leak",
+  "name": "Sensor de Inundación Xiaomi Mi Water Leak",
+  "price": 65000,
+  "stock": 35,
+  "sku": "XM-WLEAK",
+  "brand": "Xiaomi",
+  "description": "Disco con electrodos, Zigbee, alerta a app y sirena al detectar humedad. Mi Home.",
+  "images": [],
+  "active": true
+}

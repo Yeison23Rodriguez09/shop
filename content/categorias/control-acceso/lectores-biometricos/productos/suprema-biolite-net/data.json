@@ -1,0 +1,11 @@
+{
+  "slug": "suprema-biolite-net",
+  "name": "Lector Multibiométrico Suprema BioLite Net",
+  "price": 1380000,
+  "stock": 8,
+  "sku": "BLN-OC",
+  "brand": "Suprema",
+  "description": "IP65 exterior, 5000 huellas, 200 000 registros. Detección de huella viva, PoE, RS-485 y Wiegand.",
+  "images": [],
+  "active": true
+}

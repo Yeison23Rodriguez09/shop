@@ -1,0 +1,11 @@
+{
+  "slug": "hubitat-c-8",
+  "name": "Hubitat Elevation Model C-8",
+  "price": 750000,
+  "stock": 8,
+  "sku": "HE-C8",
+  "brand": "Hubitat",
+  "description": "Hub local Z-Wave 800, Zigbee 3.0, Matter y WiFi. Rule Machine, sin internet. Dashboard personalizable.",
+  "images": [],
+  "active": true
+}

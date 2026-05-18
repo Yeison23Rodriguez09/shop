@@ -1,0 +1,8 @@
+{
+  "name": "Servicios",
+  "slug": "servicios",
+  "description": "Servicios de instalacion, mantenimiento y soporte tecnico.",
+  "icon": "fa-tools",
+  "order": 7,
+  "is_active": true
+}

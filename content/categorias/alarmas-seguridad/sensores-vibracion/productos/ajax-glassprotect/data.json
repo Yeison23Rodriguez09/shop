@@ -1,0 +1,11 @@
+{
+  "slug": "ajax-glassprotect",
+  "name": "Sensor de Vibración Ajax GlassProtect",
+  "price": 185000,
+  "stock": 20,
+  "sku": "AJAX-GP",
+  "brand": "Ajax",
+  "description": "Detecta rotura de vidrio templado, laminado y blindado. Sensibilidad ajustable digital, sirena interna, 5 años de batería.",
+  "images": [],
+  "active": true
+}

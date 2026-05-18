@@ -1,0 +1,47 @@
+# ─── Core Django ─────────────────────────────────────────────────────────────
+Django==5.2.3
+django-allauth==65.0.2
+djangorestframework==3.15.2
+django-cors-headers==4.4.0
+django-celery-results==2.5.1
+
+# ─── Base de datos ────────────────────────────────────────────────────────────
+dj-database-url==2.2.0
+psycopg2-binary==2.9.9          # PostgreSQL adapter
+
+# ─── Autenticación y seguridad ────────────────────────────────────────────────
+cryptography==43.0.0
+pyOpenSSL==25.1.0
+
+# ─── Servidor y archivos estáticos ────────────────────────────────────────────
+gunicorn==23.0.0
+whitenoise==6.7.0
+
+# ─── Celery / Redis ───────────────────────────────────────────────────────────
+celery==5.4.0
+redis==5.0.7
+kombu==5.5.1
+
+# ─── Imágenes ─────────────────────────────────────────────────────────────────
+Pillow==10.4.0
+
+# ─── Excel (inventario) ───────────────────────────────────────────────────────
+openpyxl>=3.1
+
+# ─── Pasarelas de pago ────────────────────────────────────────────────────────
+stripe==10.7.0
+paypalrestsdk==1.13.3
+
+# ─── HTTP ─────────────────────────────────────────────────────────────────────
+requests==2.32.3
+urllib3==2.5.0
+certifi==2025.6.15
+charset-normalizer==3.4.2
+idna==3.10
+
+# ─── Utils ────────────────────────────────────────────────────────────────────
+python-dotenv==1.0.1
+pytz==2025.1
+tzdata==2025.1
+python-dateutil==2.9.0.post0
+sqlparse==0.5.3

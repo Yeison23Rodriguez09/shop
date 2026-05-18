@@ -1,0 +1,34 @@
+<!-- about.html: sobre nosotros -->
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Sobre Nosotros{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <h1 class="text-center mb-4">Nuestra Historia</h1>
+            <p class="lead text-center mb-5">
+                En Nexo YR Secure, creemos que la moda es una forma de expresión. Nacimos del deseo de ofrecer piezas únicas y de alta calidad que empoderen a las mujeres a sentirse seguras y hermosas cada día.
+            </p>
+
+            <hr class="my-5">
+
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <h2>Nuestra Misión</h2>
+                    <p>Nuestra misión es simple: curar una colección de ropa y accesorios que no solo siga las últimas tendencias, sino que también ofrezca piezas atemporales y versátiles. Nos esforzamos por la calidad, la sostenibilidad y un servicio al cliente excepcional.</p>
+                </div>
+                <div class="col-md-6">
+                    <img src="https://via.placeholder.com/500x300.png?text=Nuestro+Equipo" class="img-fluid rounded shadow-sm" alt="Nuestro Equipo">
+                </div>
+            </div>
+
+            <div class="text-center mt-5">
+                <a href="{% url 'core:contact' %}" class="btn btn-primary">¡Ponte en contacto!</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

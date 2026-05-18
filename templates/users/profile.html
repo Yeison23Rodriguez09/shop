@@ -1,0 +1,138 @@
+{% extends "base.html" %}
+{% block title %}Mi Perfil — Nexo YR Secure{% endblock %}
+
+{% block extra_css %}
+<style>
+  .profile-wrap{padding:2rem 0 4rem;}
+  .page-title{font-family:'Rajdhani',sans-serif;font-size:1.7rem;font-weight:700;color:var(--ares-white);letter-spacing:2px;text-transform:uppercase;}
+  .panel{background:var(--ares-gray);border:1px solid var(--ares-steel);border-radius:4px;padding:1.5rem;margin-bottom:1.2rem;}
+  .panel-title{font-family:'Rajdhani',sans-serif;font-size:.85rem;font-weight:700;color:var(--ares-silver);letter-spacing:2px;text-transform:uppercase;margin-bottom:1rem;padding-bottom:.5rem;border-bottom:1px solid var(--ares-steel);}
+  .info-row{display:flex;justify-content:space-between;align-items:flex-start;padding:.45rem 0;border-bottom:1px solid rgba(255,255,255,.04);font-size:.88rem;gap:1rem;}
+  .info-row:last-child{border:none;}
+  .i-label{color:var(--ares-silver);flex-shrink:0;}
+  .i-value{color:var(--ares-light);text-align:right;}
+  .avatar-circle{width:64px;height:64px;border-radius:50%;background:var(--ares-mid);border:2px solid var(--ares-steel);display:flex;align-items:center;justify-content:center;font-family:'Rajdhani',sans-serif;font-size:1.5rem;font-weight:700;color:var(--ares-accent);}
+  .btn-action{display:inline-flex;align-items:center;gap:.5rem;padding:.5rem 1.1rem;border:1px solid var(--ares-steel);color:var(--ares-silver);border-radius:2px;text-decoration:none;font-size:.82rem;transition:all .2s;}
+  .btn-action:hover{border-color:var(--ares-accent);color:var(--ares-accent);}
+  .order-mini{display:flex;align-items:center;justify-content:space-between;padding:.55rem 0;border-bottom:1px solid rgba(255,255,255,.04);gap:1rem;}
+  .order-mini:last-child{border:none;}
+  .status-badge{display:inline-block;padding:.2rem .6rem;border-radius:2px;font-size:.65rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;}
+  .empty-orders{text-align:center;padding:1.5rem 0;color:var(--ares-silver);font-size:.85rem;}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container profile-wrap">
+  <div class="d-flex align-items-center gap-3 mb-4 flex-wrap">
+    <div class="avatar-circle">{{ user.first_name|first|upper|default:user.email|first|upper }}</div>
+    <div>
+      <h1 class="page-title mb-0">{{ user.full_name|default:user.email }}</h1>
+      <p style="color:var(--ares-silver);font-size:.8rem;margin:.2rem 0 0;">{{ user.email }} &nbsp;·&nbsp; {{ user.get_role_display }}</p>
+    </div>
+  </div>
+
+  <div class="row g-4">
+    <div class="col-lg-7">
+
+      <!-- Información personal -->
+      <div class="panel">
+        <p class="panel-title"><i class="fa fa-user me-2" style="color:var(--ares-accent)"></i>Información personal</p>
+        <div class="info-row">
+          <span class="i-label">Nombre completo</span>
+          <span class="i-value">{{ user.full_name|default:"—" }}</span>
+        </div>
+        <div class="info-row">
+          <span class="i-label">Correo electrónico</span>
+          <span class="i-value">{{ user.email }}</span>
+        </div>
+        {% if user.profile.phone %}
+        <div class="info-row">
+          <span class="i-label">Teléfono / WhatsApp</span>
+          <span class="i-value">{{ user.profile.phone }}</span>
+        </div>
+        {% endif %}
+        {% if user.profile.tipo_documento and user.profile.numero_documento %}
+        <div class="info-row">
+          <span class="i-label">Documento</span>
+          <span class="i-value">{{ user.profile.get_tipo_documento_display }} {{ user.profile.numero_documento }}</span>
+        </div>
+        {% endif %}
+        {% if user.profile.company_name %}
+        <div class="info-row">
+          <span class="i-label">Empresa / NIT</span>
+          <span class="i-value">{{ user.profile.company_name }}{% if user.profile.company_nit %} · {{ user.profile.company_nit }}{% endif %}</span>
+        </div>
+        {% endif %}
+      </div>
+
+      <!-- Dirección guardada -->
+      <div class="panel">
+        <p class="panel-title"><i class="fa fa-map-marker-alt me-2" style="color:var(--ares-accent)"></i>Dirección de entrega</p>
+        {% if user.profile.full_address %}
+        <div class="info-row">
+          <span class="i-label">Dirección</span>
+          <span class="i-value">{{ user.profile.address_line1 }}{% if user.profile.address_line2 %}, {{ user.profile.address_line2 }}{% endif %}</span>
+        </div>
+        <div class="info-row">
+          <span class="i-label">Ciudad</span>
+          <span class="i-value">{{ user.profile.city }}, {{ user.profile.department }}</span>
+        </div>
+        {% if user.profile.postal_code %}
+        <div class="info-row">
+          <span class="i-label">Código postal</span>
+          <span class="i-value">{{ user.profile.postal_code }}</span>
+        </div>
+        {% endif %}
+        {% else %}
+        <p style="color:var(--ares-silver);font-size:.85rem;margin:0;">No tienes una dirección guardada aún.</p>
+        {% endif %}
+      </div>
+
+    </div>
+
+    <div class="col-lg-5">
+
+      <!-- Acciones -->
+      <div class="panel">
+        <p class="panel-title"><i class="fa fa-cog me-2" style="color:var(--ares-accent)"></i>Cuenta</p>
+        <div class="d-flex flex-column gap-2">
+          <a href="{% url 'users:profile_edit' %}" class="btn-action">
+            <i class="fa fa-user-edit"></i>Editar perfil y dirección
+          </a>
+          <a href="{% url 'account_change_password' %}" class="btn-action">
+            <i class="fa fa-key"></i>Cambiar contraseña
+          </a>
+          <a href="{% url 'orders:order_list' %}" class="btn-action">
+            <i class="fa fa-box-open"></i>Ver todos mis pedidos
+          </a>
+        </div>
+      </div>
+
+      <!-- Pedidos recientes -->
+      <div class="panel">
+        <p class="panel-title"><i class="fa fa-history me-2" style="color:var(--ares-accent)"></i>Pedidos recientes</p>
+        {% if recent_orders %}
+        {% for order in recent_orders %}
+        <div class="order-mini">
+          <div>
+            <a href="{% url 'orders:order_detail' pk=order.pk %}" style="color:var(--ares-light);text-decoration:none;font-size:.88rem;font-weight:600;">#{{ order.id }}</a>
+            <div style="color:var(--ares-silver);font-size:.75rem;">{{ order.created_at|date:"d/m/Y" }}</div>
+          </div>
+          <span class="status-badge" style="background:{{ order.status_color }}20;color:{{ order.status_color }};border:1px solid {{ order.status_color }}40;">
+            {{ order.get_status_display }}
+          </span>
+          <span style="font-family:'Rajdhani',sans-serif;font-weight:700;color:var(--ares-accent);font-size:.95rem;">${{ order.total_price|floatformat:0 }}</span>
+        </div>
+        {% endfor %}
+        {% else %}
+        <div class="empty-orders">
+          <i class="fa fa-box-open" style="font-size:1.8rem;margin-bottom:.5rem;display:block;"></i>
+          Aún no has realizado pedidos.
+        </div>
+        {% endif %}
+      </div>
+
+    </div>
+  </div>
+</div>
+{% endblock %}

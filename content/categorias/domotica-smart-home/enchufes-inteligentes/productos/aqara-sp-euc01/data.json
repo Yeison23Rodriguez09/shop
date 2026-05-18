@@ -1,0 +1,11 @@
+{
+  "slug": "aqara-sp-euc01",
+  "name": "Enchufe Zigbee Aqara Smart Plug SP-EUC01",
+  "price": 85000,
+  "stock": 28,
+  "sku": "SP-EUC01",
+  "brand": "Aqara",
+  "description": "Zigbee 3.0, monitorización de potencia. Requiere Hub Aqara. HomeKit, protección de sobrecarga.",
+  "images": [],
+  "active": true
+}

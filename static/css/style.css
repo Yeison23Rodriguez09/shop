@@ -1,0 +1,179 @@
+/* 🌿 Serenidad Orgánica - Nexo YR Secure UI */
+
+/* ------------------------
+   🎨 Paleta de colores base
+------------------------- */
+:root {
+  --bg-lino: #F7F5F2;
+  --bg-perla: #E4E6E3;
+  --verde-salvia: #A3B18A;
+  --rosa-arcilla: #DDBEA9;
+  --gris-carbon: #343A40;
+  --gris-suave: #6C757D;
+}
+
+/* ------------------------
+   🔤 Tipografía
+------------------------- */
+body {
+  font-family: 'Montserrat', sans-serif;
+  background-color: var(--bg-lino);
+  color: var(--gris-carbon);
+  line-height: 1.6;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Playfair Display', serif;
+  color: var(--gris-carbon);
+}
+
+/* ------------------------
+   🧭 Navbar
+------------------------- */
+.navbar {
+  background-color: var(--bg-perla);
+}
+
+.navbar-brand {
+  font-family: 'Playfair Display', serif;
+  font-weight: bold;
+  color: var(--gris-carbon);
+}
+
+.nav-link {
+  color: var(--gris-carbon);
+}
+
+.nav-link:hover {
+  color: var(--verde-salvia);
+}
+
+/* ------------------------
+   📦 Cards y Contenedores
+------------------------- */
+.card {
+  background-color: var(--bg-lino);
+  border: none;
+  border-radius: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.card-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.25rem;
+}
+
+.card-body {
+  padding: 1.5rem;
+}
+
+/* ------------------------
+   🔘 Botones
+------------------------- */
+.btn-success {
+  background-color: var(--verde-salvia);
+  border: none;
+}
+
+.btn-success:hover {
+  background-color: #8b9e76;
+}
+
+.btn-secondary {
+  background-color: var(--rosa-arcilla);
+  border: none;
+}
+
+.btn-secondary:hover {
+  background-color: #cda897;
+}
+
+.btn-danger {
+  background-color: #e07a5f;
+  border: none;
+}
+
+.btn-danger:hover {
+  background-color: #cf6651;
+}
+
+.btn {
+  font-weight: 600;
+  border-radius: 50px;
+}
+
+/* ------------------------
+   🧾 Formularios
+------------------------- */
+form label {
+  font-weight: 500;
+  color: var(--gris-carbon);
+}
+
+form input,
+form textarea,
+form select {
+  border-radius: 10px;
+  border: 1px solid #ced4da;
+  background-color: #fff;
+  padding: 0.6rem 0.9rem;
+  color: var(--gris-carbon);
+}
+
+form input:focus,
+form textarea:focus,
+form select:focus {
+  border-color: var(--verde-salvia);
+  box-shadow: 0 0 0 0.2rem rgba(163, 177, 138, 0.25);
+}
+
+/* ------------------------
+   ✅ Alertas y mensajes
+------------------------- */
+.alert {
+  border-radius: 1rem;
+  font-weight: 500;
+}
+
+.alert-success {
+  background-color: var(--bg-perla);
+  color: var(--gris-carbon);
+}
+
+.alert-danger {
+  background-color: #ffe5e5;
+  color: #9c2c2c;
+}
+
+.alert-info {
+  background-color: #edf2f7;
+  color: var(--gris-carbon);
+}
+
+/* ------------------------
+   📜 Enlaces
+------------------------- */
+a {
+  color: var(--verde-salvia);
+  text-decoration: none;
+}
+
+a:hover {
+  color: #81926d;
+  text-decoration: underline;
+}
+
+/* ------------------------
+   🧩 Misceláneos
+------------------------- */
+.rounded-4 {
+  border-radius: 1.5rem !important;
+}
+
+.shadow-sm {
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05) !important;
+}
+
+.text-muted {
+  color: var(--gris-suave) !important;
+}

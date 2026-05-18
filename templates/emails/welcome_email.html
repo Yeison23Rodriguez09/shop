@@ -1,0 +1,37 @@
+<!-- Bienvenida -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>¡Bienvenida a Nexo YR Secure!</title>
+</head>
+<body style="font-family: Arial, sans-serif; margin: 0; padding: 20px; background-color: #f4f4f4;">
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+            <td align="center">
+                <table width="600" border="0" cellspacing="0" cellpadding="20" style="background-color: #ffffff; border-radius: 8px; border: 1px solid #dddddd;">
+                    <tr>
+                        <td align="center">
+                            <h1 style="color: #e91e63;">¡Bienvenida, {{ user.first_name|default:user.username }}!</h1>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="color: #333333; font-size: 16px; line-height: 1.5; text-align: center;">
+                            <p>Estamos muy felices de tenerte en la comunidad de Nexo YR Secure.</p>
+                            <p>Prepárate para descubrir piezas únicas y las últimas tendencias en moda y accesorios.</p>
+                            <p style="text-align: center; margin: 30px 0;">
+                                <a href="http://127.0.0.1:8000{% url 'catalog:lista_productos' %}" style="background-color: #e91e63; color: #ffffff; padding: 15px 25px; text-decoration: none; border-radius: 5px; font-weight: bold;">Explorar el Catálogo</a>
+                            </p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="center" style="border-top: 1px solid #eeeeee; font-size: 12px; color: #777777; padding-top: 20px;">
+                           Nexo YR Secure | Síguenos en nuestras redes sociales.
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

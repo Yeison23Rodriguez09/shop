@@ -1,0 +1,11 @@
+{
+  "slug": "ajax-relay-glp",
+  "name": "Detector de Gas LP/GLP Ajax con Relay",
+  "price": 250000,
+  "stock": 15,
+  "sku": "AJAX-GAS-RELAY",
+  "brand": "Ajax",
+  "description": "Solución Ajax con módulo Relay para cortar suministro al activarse alarma. Configuración desde app.",
+  "images": [],
+  "active": true
+}

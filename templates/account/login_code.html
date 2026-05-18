@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}Confirmación de código{% endblock %}
+
+{% block content %}
+<div class="card shadow p-4 rounded-4 mx-auto" style="max-width: 500px; background-color: #F7F5F2;">
+  <h2 class="mb-4 text-center" style="font-family: 'Playfair Display', serif; color: #343A40;">
+    {% trans "Ingrese el código de inicio de sesión" %}
+  </h2>
+  <p class="text-muted text-center mb-4">
+    {% trans "Hemos enviado un código a" %} <strong>{{ email }}</strong>.
+    {% trans "El código caduca en breve, así que introdúcelo pronto." %}
+  </p>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+
+    <div class="mb-3">
+      {{ form.code.label_tag }}
+      {{ form.code }}
+      {% for error in form.code.errors %}
+        <div class="text-danger small">{{ error }}</div>
+      {% endfor %}
+    </div>
+
+    <div class="d-flex justify-content-between">
+      <button type="submit" class="btn btn-success rounded-pill px-4" style="background-color: #A3B18A; border: none;">
+        {% trans "Confirmar" %}
+      </button>
+      <a href="{% url 'account_login' %}" class="btn btn-secondary rounded-pill px-4" style="background-color: #DDBEA9; border: none;">
+        {% trans "Cancelar" %}
+      </a>
+    </div>
+  </form>
+</div>
+{% endblock %}

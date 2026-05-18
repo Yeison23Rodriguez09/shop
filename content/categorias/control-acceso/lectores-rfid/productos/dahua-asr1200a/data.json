@@ -1,0 +1,11 @@
+{
+  "slug": "dahua-asr1200a",
+  "name": "Lector RFID Mifare Dahua DHI-ASR1200A",
+  "price": 145000,
+  "stock": 20,
+  "sku": "DHI-ASR1200A",
+  "brand": "Dahua",
+  "description": "MIFARE Classic 13.56 MHz, Wiegand 26/34, hasta 5 cm. Tamper antisabotaje.",
+  "images": [],
+  "active": true
+}

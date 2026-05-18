@@ -1,0 +1,274 @@
+/* ============================================================
+   Nexo YR Secure — components.css
+   Botones, cards, forms, alerts, badges, sidebar, paginación.
+   Incluye overrides Bootstrap + de clases inline legacy para
+   que TODA página (rediseñada o no) herede el tema navy/cian.
+   ============================================================ */
+
+/* ---------- BOTONES base ---------- */
+.btn-ares,
+.btn-checkout, .btn-next, .btn-pay, .btn-auth {
+  background: var(--gradient-primary) !important;
+  color: #04141f !important;
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+  border: none; padding: .65rem 1.6rem; border-radius: var(--radius-sm);
+  transition: transform var(--t-fast), box-shadow var(--t-fast), filter var(--t-fast);
+  text-decoration: none; display: inline-block; cursor: pointer;
+  box-shadow: 0 8px 22px rgba(0,212,170,.28);
+}
+.btn-ares:hover,
+.btn-checkout:hover, .btn-next:hover, .btn-pay:hover, .btn-auth:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 30px rgba(0,212,170,.42);
+  filter: brightness(1.06); color: #04141f !important;
+}
+.btn-ares:active { transform: translateY(0); }
+
+.btn-ares-outline {
+  background: transparent; color: var(--accent-cyan) !important;
+  border: 1px solid var(--accent-cyan);
+  font-family: 'Rajdhani', sans-serif; font-weight: 700;
+  letter-spacing: 1px; text-transform: uppercase;
+  padding: .58rem 1.5rem; border-radius: var(--radius-sm);
+  transition: all var(--t-fast); text-decoration: none;
+  display: inline-block; cursor: pointer;
+}
+.btn-ares-outline:hover {
+  background: var(--gradient-primary); color: #04141f !important;
+  border-color: transparent; transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(0,212,170,.32);
+}
+
+/* Botones secundarios legacy (detalle / acción / limpiar) */
+.btn-detail, .btn-action, .btn-clear, .btn-remove {
+  transition: all var(--t-fast) !important;
+}
+.btn-detail:hover, .btn-action:hover {
+  border-color: var(--accent-cyan) !important;
+  color: var(--accent-cyan) !important;
+  box-shadow: var(--glow-cyan);
+}
+
+/* ---------- Bootstrap button overrides ---------- */
+.btn-primary {
+  --bs-btn-bg: transparent; --bs-btn-border-color: transparent;
+  --bs-btn-hover-bg: transparent; --bs-btn-hover-border-color: transparent;
+  --bs-btn-active-bg: transparent; --bs-btn-color: #04141f;
+  --bs-btn-hover-color: #04141f; --bs-btn-active-color: #04141f;
+  background: var(--gradient-primary); border: none;
+  font-weight: 700; box-shadow: 0 8px 22px rgba(0,212,170,.28);
+  transition: transform var(--t-fast), box-shadow var(--t-fast);
+}
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 14px 30px rgba(0,212,170,.42); }
+.btn-outline-primary,
+.btn-outline-secondary {
+  --bs-btn-color: var(--accent-cyan);
+  --bs-btn-border-color: var(--accent-cyan);
+  --bs-btn-hover-bg: var(--accent-cyan);
+  --bs-btn-hover-border-color: var(--accent-cyan);
+  --bs-btn-hover-color: #04141f;
+  --bs-btn-active-bg: var(--accent-cyan);
+  --bs-btn-active-color: #04141f;
+}
+.btn-success { --bs-btn-bg: var(--success); --bs-btn-border-color: var(--success);
+  --bs-btn-hover-bg:#0ea371; --bs-btn-hover-border-color:#0ea371; }
+.btn-lg { padding: .8rem 2rem; }
+
+/* ---------- CARDS ---------- */
+.ares-card {
+  background: var(--gradient-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  transition: transform var(--t), border-color var(--t), box-shadow var(--t);
+  height: 100%; overflow: hidden; position: relative;
+}
+.ares-card::after {
+  content: ''; position: absolute; inset: 0; border-radius: inherit;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.04);
+  pointer-events: none;
+}
+.ares-card:hover {
+  border-color: rgba(0,212,170,.5);
+  transform: translateY(-6px);
+  box-shadow: var(--glow-card);
+}
+.ares-card-img { width: 100%; height: 210px; object-fit: cover; }
+.img-placeholder {
+  width: 100%; height: 210px;
+  background: linear-gradient(135deg,var(--bg-elevated),var(--bg-secondary));
+  display: flex; align-items: center; justify-content: center;
+  color: var(--border-color); font-size: 2.6rem;
+}
+.ares-card .card-body { padding: 1.2rem; }
+.ares-card .card-title {
+  font-family: 'Rajdhani', sans-serif; font-size: 1.05rem;
+  font-weight: 600; color: var(--text-light); margin-bottom: .4rem;
+}
+.ares-card .card-text { color: var(--text-muted); font-size: .82rem; }
+.ares-price {
+  color: var(--accent-cyan); font-family: 'Rajdhani', sans-serif;
+  font-size: 1.3rem; font-weight: 700;
+}
+
+/* Bootstrap .card override (páginas no rediseñadas) */
+.card {
+  background: var(--gradient-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius); color: var(--text-muted);
+}
+.card-img-top { object-fit: cover; height: 210px; }
+.card.shadow-sm, .card.shadow-lg { box-shadow: var(--shadow-md) !important; }
+.border-success { border-color: var(--success) !important; }
+
+/* ---------- PAGE HEADER ---------- */
+.ares-page-header {
+  background:
+    radial-gradient(700px 280px at 80% -40%, rgba(0,212,170,.12), transparent 60%),
+    var(--bg-deep);
+  border-bottom: 1px solid var(--border-color);
+  padding: 2.4rem 0; margin-bottom: 2.5rem;
+}
+.ares-page-header h1 {
+  font-family: 'Rajdhani', sans-serif; font-size: 2rem; font-weight: 700;
+  color: var(--text-light); letter-spacing: 1px; text-transform: uppercase;
+}
+.ares-page-header p { color: var(--text-muted); font-size: .9rem; margin-top: .3rem; }
+
+/* ---------- SECTION TITLE ---------- */
+.section-title {
+  font-family: 'Rajdhani', sans-serif; font-size: 1.7rem; font-weight: 700;
+  color: var(--text-light); letter-spacing: 1px; text-transform: uppercase;
+}
+.section-title span {
+  background: var(--gradient-text);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ---------- SIDEBAR ---------- */
+.ares-sidebar {
+  background: var(--gradient-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius); padding: 1.5rem;
+}
+.ares-sidebar h6 {
+  font-family: 'Rajdhani', sans-serif; font-size: .76rem;
+  letter-spacing: 2px; text-transform: uppercase;
+  color: var(--accent-cyan); margin-bottom: 1rem;
+  padding-bottom: .5rem; border-bottom: 1px solid var(--border-color);
+}
+.ares-sidebar a {
+  display: block; color: var(--text-muted); text-decoration: none;
+  padding: .45rem 0; font-size: .88rem;
+  border-bottom: 1px solid rgba(255,255,255,.04);
+  transition: color var(--t-fast), padding-left var(--t-fast);
+}
+.ares-sidebar a:hover, .ares-sidebar a.active {
+  color: var(--accent-cyan); padding-left: .5rem;
+}
+
+/* ---------- FORMS ---------- */
+.form-control, .form-select {
+  background: var(--bg-elevated); border: 1px solid var(--border-color);
+  color: var(--text-light); border-radius: var(--radius-sm);
+  padding: .6rem .9rem; transition: border-color var(--t-fast), box-shadow var(--t-fast);
+}
+.form-control:focus, .form-select:focus {
+  background: var(--bg-elevated); border-color: var(--accent-cyan);
+  color: var(--text-light); box-shadow: var(--glow-cyan);
+  outline: none;
+}
+.form-control::placeholder { color: var(--text-dim); }
+.form-label {
+  color: var(--text-muted); font-size: .8rem;
+  letter-spacing: .5px; text-transform: uppercase; margin-bottom: .35rem;
+}
+textarea.form-control { resize: vertical; }
+.form-check-input { background-color: var(--bg-elevated); border-color: var(--border-color); }
+.form-check-input:checked { background-color: var(--accent-cyan); border-color: var(--accent-cyan); }
+.form-check-input:focus { box-shadow: var(--glow-cyan); border-color: var(--accent-cyan); }
+.form-text, .text-muted { color: var(--text-dim) !important; }
+
+/* ---------- ALERTS / MENSAJES ---------- */
+.alert-ok, .alert-success {
+  background: rgba(16,185,129,.14); border: 1px solid var(--success);
+  color: #34d399; border-radius: var(--radius-sm); padding: .8rem 1.1rem;
+}
+.alert-err, .alert-danger, .alert-error {
+  background: rgba(239,68,68,.14); border: 1px solid var(--danger);
+  color: #f87171; border-radius: var(--radius-sm); padding: .8rem 1.1rem;
+}
+.alert-info, .alert-warning {
+  background: rgba(59,130,246,.14); border: 1px solid var(--accent-blue);
+  color: #93c5fd; border-radius: var(--radius-sm); padding: .8rem 1.1rem;
+}
+.alert { border-radius: var(--radius-sm); }
+
+/* ---------- BADGES / ESTADOS ---------- */
+.badge-ares {
+  background: var(--bg-elevated); color: var(--text-muted);
+  font-size: .72rem; font-weight: 600; padding: .32em .75em;
+  border-radius: 999px; letter-spacing: .5px;
+  border: 1px solid var(--border-color);
+}
+.badge.bg-primary { background: var(--gradient-primary) !important; color: #04141f; }
+.badge.bg-secondary { background: var(--bg-elevated) !important; }
+.text-primary { color: var(--accent-cyan) !important; }
+.text-success { color: var(--success) !important; }
+.text-danger  { color: var(--danger)  !important; }
+.text-accent  { color: var(--accent-cyan) !important; }
+.text-silver  { color: var(--text-muted) !important; }
+
+/* ---------- TABLES ---------- */
+.table { --bs-table-color: var(--text-muted); --bs-table-bg: transparent;
+  --bs-table-border-color: var(--border-color); color: var(--text-muted); }
+.table > :not(caption) > * > * { background: transparent; }
+
+/* ---------- PAGINACIÓN ---------- */
+.pagination { gap: .5rem; }
+.pagination .page-link,
+.pagination a {
+  background: var(--bg-secondary); border: 1px solid var(--border-color);
+  color: var(--text-muted); border-radius: var(--radius-sm);
+}
+.pagination .page-link:hover { background: var(--bg-elevated); color: var(--accent-cyan); }
+.pagination .active > .page-link { background: var(--gradient-primary); border: none; color: #04141f; }
+
+hr, hr.ares { border-color: var(--border-color); opacity: 1; }
+
+/* ---------- Botones por tipo (producto vs servicio) ---------- */
+.btn-cotizar {
+  display: block;
+  width: 100%;
+  padding: .75rem;
+  background: linear-gradient(135deg, #25D366, #1EA853);
+  color: #fff !important;
+  text-align: center;
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  font-weight: 700;
+  letter-spacing: .5px;
+  transition: transform .3s ease, box-shadow .3s ease;
+}
+.btn-cotizar:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(37, 211, 102, .4);
+  color: #fff !important;
+}
+.precio-cotizar {
+  font-size: 1.05rem;
+  color: var(--accent-cyan);
+  font-style: italic;
+  font-weight: 600;
+}
+.btn-agotado {
+  display: block;
+  width: 100%;
+  padding: .75rem;
+  background: #374151;
+  color: #6B7280;
+  text-align: center;
+  border-radius: var(--radius-sm);
+  font-weight: 700;
+}

@@ -1,0 +1,11 @@
+{
+  "slug": "engenius-ews850-ap",
+  "name": "AP de Exterior Engenius EWS850-AP",
+  "price": 850000,
+  "stock": 8,
+  "sku": "EWS850-AP",
+  "brand": "Engenius",
+  "description": "WiFi 6 exterior IP68, doble banda, 2×2 MU-MIMO, 1800 Mbps. PoE+ 802.3at, gestión ezMaster.",
+  "images": [],
+  "active": true
+}

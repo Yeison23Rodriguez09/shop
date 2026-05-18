@@ -1,0 +1,11 @@
+{
+  "slug": "essl-sa-05",
+  "name": "Controlador Sencillo de 1 Puerta ESSL SA-05",
+  "price": 145000,
+  "stock": 16,
+  "sku": "SA-05",
+  "brand": "ESSL",
+  "description": "Autónomo para tarjeta EM con teclado y pantalla. 2000 usuarios, salida de relé y puerta.",
+  "images": [],
+  "active": true
+}

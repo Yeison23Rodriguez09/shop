@@ -1,0 +1,202 @@
+{% extends "base.html" %}
+
+{% block title %}Catálogo — Nexo YR Secure{% endblock %}
+
+{% block content %}
+<!-- PAGE HEADER + buscador + filtros dinámicos (sin sidebar) -->
+<div class="ares-page-header">
+  <div class="container">
+    <h1>Catálogo de Productos</h1>
+    <p>Productos y servicios de seguridad electrónica</p>
+  </div>
+</div>
+
+<div class="container pb-5">
+
+  {% url 'catalog:product_list' as base_url %}
+
+  <!-- Fila 1: búsqueda (?q=) — conserva tipo/categoría activos -->
+  <form method="get" action="{{ base_url }}" class="search-bar mb-3" role="search">
+    {% if current_type %}<input type="hidden" name="tipo" value="{{ current_type }}">{% endif %}
+    {% if current_category %}<input type="hidden" name="categoria" value="{{ current_category }}">{% endif %}
+    <input type="search" name="q" value="{{ search_query }}" class="form-control"
+           placeholder="Buscar productos o servicios..." aria-label="Buscar">
+    <button type="submit" class="btn-ares" style="white-space:nowrap;"><i class="fa fa-search me-1"></i>Buscar</button>
+  </form>
+
+  <!-- Fila 2: botones principales -->
+  <div class="filter-main">
+    <button type="button" id="btn-todos"
+            class="filter-btn {% if not current_type and not current_category %}active{% endif %}"
+            onclick="filterTodos()">TODOS</button>
+    <button type="button" id="btn-productos"
+            class="filter-btn {% if current_type == 'product' %}active{% endif %}"
+            onclick="toggleProductos()">
+      PRODUCTOS <span id="arrow-productos">▶</span>
+    </button>
+    <button type="button" id="btn-servicios"
+            class="filter-btn {% if current_type == 'service' %}active{% endif %}"
+            onclick="toggleServicios()">
+      SERVICIOS <span id="arrow-servicios">▶</span>
+    </button>
+  </div>
+
+  <!-- Fila 3: subcategorías PRODUCTOS (dinámicas desde la BD) -->
+  <div id="sub-productos" class="filter-sub hidden">
+    {% for cat in product_categories %}
+    <a href="{{ base_url }}?tipo=product&categoria={{ cat.slug }}"
+       class="sub-btn {% if current_category == cat.slug %}active{% endif %}">
+      {% if cat.icon %}<i class="fa {{ cat.icon }} me-1"></i>{% endif %}{{ cat.name }}
+    </a>
+    {% empty %}
+    <span class="text-silver" style="font-size:.85rem;">Sin categorías de productos.</span>
+    {% endfor %}
+  </div>
+
+  <!-- Fila 4: subcategorías SERVICIOS (dinámicas desde la BD) -->
+  <div id="sub-servicios" class="filter-sub hidden">
+    {% for cat in service_categories %}
+    <a href="{{ base_url }}?tipo=service&categoria={{ cat.slug }}"
+       class="sub-btn {% if current_category == cat.slug %}active{% endif %}">
+      {% if cat.icon %}<i class="fa {{ cat.icon }} me-1"></i>{% endif %}{{ cat.name }}
+    </a>
+    {% empty %}
+    <span class="text-silver" style="font-size:.85rem;">Sin categorías de servicios.</span>
+    {% endfor %}
+  </div>
+
+  {% if current_category or search_query %}
+  <div class="d-flex gap-2 align-items-center flex-wrap mb-4 mt-2">
+    {% if current_category %}<span class="badge-ares">Categoría: {{ current_category }}</span>{% endif %}
+    {% if search_query %}<span class="text-silver" style="font-size:.8rem;">Resultados para “{{ search_query }}”</span>{% endif %}
+  </div>
+  {% else %}
+  <div class="mb-4"></div>
+  {% endif %}
+
+  <!-- GRID (responsive 2/3/4 columnas, sin sidebar) -->
+  <div class="row g-4">
+    {% for product in products %}
+    <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
+      <div class="ares-card h-100 d-flex flex-column">
+        <a href="{% url 'catalog:product_detail' slug=product.slug %}" style="text-decoration:none">
+          {% if product.get_image %}
+            <img src="{{ product.get_image }}" class="ares-card-img" alt="{{ product.name }}" loading="lazy">
+          {% else %}
+            <div class="img-placeholder"><i class="fa {% if product.is_service %}fa-tools{% else %}fa-camera-retro{% endif %}"></i></div>
+          {% endif %}
+          <div class="card-body flex-grow-1">
+            <small class="text-accent" style="font-size:.7rem;letter-spacing:1px;text-transform:uppercase">
+              {% if product.is_service %}Servicio{% else %}Producto{% endif %}{% if product.category %} · {{ product.category.name }}{% endif %}
+            </small>
+            <h5 class="card-title mt-1">{{ product.name }}</h5>
+            <p class="card-text">{{ product.description|truncatechars:70 }}</p>
+            <div class="d-flex justify-content-between align-items-center mt-3">
+              {% if product.is_service %}
+                <span class="precio-cotizar">A cotizar</span>
+                <span class="badge-ares"><i class="fa fa-tools me-1"></i>Servicio</span>
+              {% else %}
+                <span class="ares-price">${{ product.price|floatformat:0 }}</span>
+                <span class="badge-ares">{% if product.stock > 0 %}En stock{% else %}Agotado{% endif %}</span>
+              {% endif %}
+            </div>
+          </div>
+        </a>
+        <div class="px-3 pb-3">
+          {% if product.is_service %}
+          <!-- SERVICIO: cotización vía WhatsApp -->
+          <a href="https://wa.me/573114879338?text=Hola%20Nexo%20YR%20Secure%2C%20quiero%20cotizar%3A%20{{ product.name|urlencode }}"
+             target="_blank" rel="noopener" class="btn-cotizar">
+            <i class="fab fa-whatsapp me-1"></i>SOLICITAR COTIZACIÓN
+          </a>
+          {% elif product.stock > 0 %}
+          <!-- PRODUCTO: agregar al carrito -->
+          <form method="post" action="{% url 'cart:add_to_cart' product.id %}">
+            {% csrf_token %}
+            <input type="hidden" name="quantity" value="1">
+            <input type="hidden" name="next" value="{{ request.get_full_path }}">
+            <button type="submit" class="btn-ares w-100" style="font-size:.8rem;padding:.6rem;">
+              <i class="fa fa-cart-plus me-1"></i>AGREGAR AL CARRITO
+            </button>
+          </form>
+          {% else %}
+          <span class="btn-agotado">Agotado</span>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    {% empty %}
+    <div class="col-12 text-center py-5">
+      <i class="fa fa-box-open fs-1 text-silver mb-3 d-block"></i>
+      <p class="text-silver">No se encontraron resultados.</p>
+      <a href="{% url 'catalog:product_list' %}" class="btn-ares mt-2">Ver todo el catálogo</a>
+    </div>
+    {% endfor %}
+  </div>
+
+  <!-- PAGINACIÓN (conserva filtros) -->
+  {% if is_paginated %}
+  <nav class="mt-5">
+    <ul class="pagination justify-content-center gap-2">
+      {% if page_obj.has_previous %}
+      <li><a class="btn-ares-outline" href="?page={{ page_obj.previous_page_number }}{% if current_type %}&tipo={{ current_type }}{% endif %}{% if current_category %}&categoria={{ current_category }}{% endif %}{% if search_query %}&q={{ search_query|urlencode }}{% endif %}">&laquo; Anterior</a></li>
+      {% endif %}
+      <li><span class="text-silver" style="padding:.55rem 1rem;">Página {{ page_obj.number }} / {{ page_obj.paginator.num_pages }}</span></li>
+      {% if page_obj.has_next %}
+      <li><a class="btn-ares-outline" href="?page={{ page_obj.next_page_number }}{% if current_type %}&tipo={{ current_type }}{% endif %}{% if current_category %}&categoria={{ current_category }}{% endif %}{% if search_query %}&q={{ search_query|urlencode }}{% endif %}">Siguiente &raquo;</a></li>
+      {% endif %}
+    </ul>
+  </nav>
+  {% endif %}
+
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// ── Filtros dinámicos expandibles ──────────────────────────────
+(function () {
+  var SHOP_URL = "{% url 'catalog:product_list' %}";
+  var urlParams = new URLSearchParams(window.location.search);
+  var tipoActual = urlParams.get('tipo');
+
+  function el(id){ return document.getElementById(id); }
+
+  window.showSub = function (tipo) {
+    el('sub-productos').classList.add('hidden');
+    el('sub-servicios').classList.add('hidden');
+    el('arrow-productos').textContent = '▶';
+    el('arrow-servicios').textContent = '▶';
+    el('btn-productos').classList.remove('active');
+    el('btn-servicios').classList.remove('active');
+    if (tipo) {
+      el('sub-' + tipo).classList.remove('hidden');
+      el('arrow-' + tipo).textContent = '▼';
+      el('btn-' + tipo).classList.add('active');
+    }
+  };
+
+  window.toggleProductos = function () {
+    var isOpen = !el('sub-productos').classList.contains('hidden');
+    showSub(isOpen ? null : 'productos');
+  };
+  window.toggleServicios = function () {
+    var isOpen = !el('sub-servicios').classList.contains('hidden');
+    showSub(isOpen ? null : 'servicios');
+  };
+  window.filterTodos = function () { window.location.href = SHOP_URL; };
+
+  // Auto-expandir al recargar — 100% dinámico, sin listas hardcodeadas:
+  // se detecta el panel que contiene la subcategoría activa; si no, por tipo.
+  document.addEventListener('DOMContentLoaded', function () {
+    var prodActive = el('sub-productos').querySelector('.sub-btn.active');
+    var svcActive  = el('sub-servicios').querySelector('.sub-btn.active');
+    if (prodActive || tipoActual === 'product') {
+      showSub('productos');
+    } else if (svcActive || tipoActual === 'service') {
+      showSub('servicios');
+    }
+  });
+})();
+</script>
+{% endblock %}

@@ -1,0 +1,11 @@
+{
+  "slug": "balun-pasivo-utp",
+  "name": "Balun Pasivo para Video y Datos por Par Trenzado",
+  "price": 18000,
+  "stock": 100,
+  "sku": "BALUN-UTP-PAR",
+  "brand": "Generic",
+  "description": "Par de baluns para video analógico HD (5MP) y control PTZ por UTP CAT5e/6 hasta 300 m. Conector BNC y terminales.",
+  "images": [],
+  "active": true
+}

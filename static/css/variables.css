@@ -1,0 +1,63 @@
+/* ============================================================
+   Nexo YR Secure — variables.css
+   Paleta azul marino + cian moderno.
+   Define la nueva paleta Y reasigna las variables legacy
+   (--ares-*) para re-tematizar TODO el sitio sin tocar la
+   lógica Django ni reescribir cada template.
+   ============================================================ */
+
+:root {
+  /* ---- Paleta nueva (solicitada) ---- */
+  --bg-primary:    #0A1628;   /* fondo base                 */
+  --bg-secondary:  #1A2E4A;   /* tarjetas / paneles         */
+  --accent-cyan:   #00D4AA;   /* acento principal           */
+  --accent-blue:   #3B82F6;   /* acento secundario          */
+  --text-light:    #F8FAFC;   /* texto principal            */
+  --text-muted:    #CBD5E1;   /* texto secundario           */
+  --border-color:  #1E3A5F;   /* bordes                     */
+  --success:       #10B981;
+  --danger:        #EF4444;
+  --warning:       #F59E0B;
+
+  /* ---- Tonos de apoyo ---- */
+  --bg-elevated:   #16263F;   /* inputs / superficies medias */
+  --bg-deep:       #0F1F38;   /* navbar / footer             */
+  --text-dim:      #94A3B8;
+
+  /* ---- Gradientes ---- */
+  --gradient-primary: linear-gradient(135deg, var(--accent-cyan) 0%, var(--accent-blue) 100%);
+  --gradient-hero:    linear-gradient(135deg, #0A1628 0%, #122847 55%, #0F1F38 100%);
+  --gradient-text:    linear-gradient(120deg, #00D4AA 0%, #3B82F6 100%);
+  --gradient-card:    linear-gradient(160deg, rgba(26,46,74,.9) 0%, rgba(15,31,56,.9) 100%);
+
+  /* ---- Sombras y glow ---- */
+  --shadow-sm:   0 2px 8px rgba(0,0,0,.25);
+  --shadow-md:   0 8px 24px rgba(0,0,0,.35);
+  --shadow-lg:   0 18px 48px rgba(0,0,0,.45);
+  --glow-cyan:   0 0 0 3px rgba(0,212,170,.20);
+  --glow-card:   0 14px 38px rgba(0,212,170,.16);
+
+  /* ---- Radios / transición ---- */
+  --radius-sm: 8px;
+  --radius:    14px;
+  --radius-lg: 22px;
+  --t-fast: .18s ease;
+  --t:      .28s cubic-bezier(.22,.61,.36,1);
+
+  /* ============================================================
+     REMAPEO LEGACY → la magia: cada template usa var(--ares-*).
+     Reapuntamos esas variables a la paleta navy/cian, así TODO
+     (home, carrito, checkout, órdenes, perfil, detalle, auth)
+     se re-tematiza automáticamente.
+     ============================================================ */
+  --ares-black:  #0A1628;
+  --ares-dark:   #0F1F38;
+  --ares-gray:   #1A2E4A;
+  --ares-mid:    #16263F;
+  --ares-steel:  #1E3A5F;
+  --ares-silver: #CBD5E1;
+  --ares-light:  #E2E8F0;
+  --ares-white:  #F8FAFC;
+  --ares-accent: #00D4AA;
+  --ares-red:    #EF4444;
+}

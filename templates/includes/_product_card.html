@@ -1,0 +1,23 @@
+{% load static %}
+<!-- _product_card.html: tarjeta de producto reutilizable (tema navy/cian) -->
+<div class="ares-card h-100 d-flex flex-column">
+  <a href="{{ product.get_absolute_url }}" class="text-decoration-none">
+    <div class="featured-img">
+      {% if product.get_image %}
+        <img src="{{ product.get_image }}" alt="{{ product.name }}" loading="lazy"
+             onerror="this.onerror=null;this.parentElement.innerHTML='<div class=&quot;placeholder-icon&quot;>{% if product.is_service %}🔧{% else %}📦{% endif %}</div>'">
+      {% else %}
+        <div class="placeholder-icon">{% if product.is_service %}🔧{% else %}📦{% endif %}</div>
+      {% endif %}
+    </div>
+  </a>
+  <div class="card-body flex-grow-1">
+    <h5 class="card-title">{{ product.name }}</h5>
+    <p class="ares-price mb-0">${{ product.price|floatformat:0 }}</p>
+  </div>
+  <div class="px-3 pb-3">
+    <a href="{% url 'cart:add_to_cart' product.id %}" class="btn-ares-outline w-100" style="font-size:.8rem;padding:.5rem;">
+      <i class="fa fa-cart-plus me-1"></i>Añadir al Carrito
+    </a>
+  </div>
+</div>

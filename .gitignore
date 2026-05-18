@@ -1,0 +1,65 @@
+# ─── Entornos virtuales ───────────────────────────────────────────────────────
+.venv/
+venv/
+env/
+
+# ─── Python ───────────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# ─── Django ───────────────────────────────────────────────────────────────────
+*.sqlite3
+staticfiles/
+local_settings.py
+
+# ─── Archivos de entorno ──────────────────────────────────────────────────────
+.env
+.env.local
+.env.production
+.env.staging
+# .env.example SÍ se versiona (es plantilla pública)
+!.env.example
+
+# ─── Media generada en runtime ────────────────────────────────────────────────
+# Mantener la carpeta vacía con .gitkeep si se necesita
+media/
+!media/.gitkeep
+
+# ─── Testing y cobertura ──────────────────────────────────────────────────────
+.coverage
+.coverage.*
+htmlcov/
+.pytest_cache/
+coverage.xml
+
+# ─── IDEs ────────────────────────────────────────────────────────────────────
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# ─── Sistema operativo ───────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ─── Archivos temporales / generados ─────────────────────────────────────────
+*.log
+*.pot
+*.bak
+*.tmp
+*.pid
+output/
+estructura.txt
+
+# ─── Node (si se usa frontend desacoplado) ────────────────────────────────────
+node_modules/
+
+# ─── Docker ───────────────────────────────────────────────────────────────────
+# Los volúmenes locales no se versiones
+postgres_data/

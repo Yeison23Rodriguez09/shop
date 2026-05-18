@@ -1,0 +1,8 @@
+{
+  "name": "Redes y Conectividad",
+  "slug": "redes-conectividad",
+  "description": "Routers, switches, cableado estructurado y equipos de red profesionales.",
+  "icon": "fa-network-wired",
+  "order": 4,
+  "is_active": true
+}

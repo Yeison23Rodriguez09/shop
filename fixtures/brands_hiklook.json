@@ -1,0 +1,12 @@
+[
+  {
+    "model": "catalog.brand",
+    "pk": 10,
+    "fields": {
+      "name": "HikLook",
+      "country": "China",
+      "website": "https://www.hiklook.com",
+      "logo": ""
+    }
+  }
+]

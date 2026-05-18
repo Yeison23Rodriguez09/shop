@@ -1,0 +1,8 @@
+{
+  "name": "Control de Acceso",
+  "slug": "control-acceso",
+  "description": "Lectores biometricos, cerraduras electronicas, videoporteros y mas.",
+  "icon": "fa-key",
+  "order": 3,
+  "is_active": true
+}

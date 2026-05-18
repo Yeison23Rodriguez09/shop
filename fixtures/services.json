@@ -1,0 +1,268 @@
+[
+  {
+    "model": "services.service",
+    "pk": 1,
+    "fields": {
+      "name": "Instalación de Cámaras CCTV",
+      "slug": "instalacion-camaras-cctv",
+      "category": 1,
+      "short_description": "Instalación profesional de cámaras IP, analógicas y HD. Configuración de grabación, visualización remota y alertas.",
+      "description": "Nuestro equipo técnico certificado instala sistemas de videovigilancia completos adaptados a su necesidad. El servicio incluye:\n\n• Visita técnica de diagnóstico y diseño de cobertura\n• Instalación de cámaras interiores y exteriores\n• Tendido de cableado estructurado o configuración inalámbrica\n• Instalación y configuración de NVR/DVR\n• Configuración de visualización remota desde celular y PC\n• Configuración de alertas y notificaciones de movimiento\n• Capacitación básica al usuario final\n• Garantía de mano de obra incluida\n\nTrabajamos con marcas líderes: Hikvision, Dahua y HikLook.",
+      "pricing_type": "project",
+      "base_price": "350000.00",
+      "image": "",
+      "is_active": true,
+      "is_featured": true,
+      "includes_warranty": true,
+      "warranty_days": 90,
+      "created_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "services.service",
+    "pk": 2,
+    "fields": {
+      "name": "Instalación de Sistema de Alarma",
+      "slug": "instalacion-sistema-alarma",
+      "category": 1,
+      "short_description": "Instalación de paneles de alarma perimetral con sensores, sirenas y comunicación a central. Protección total para su hogar o negocio.",
+      "description": "Diseñamos e instalamos sistemas de alarma perimetral completos para residencias, oficinas y locales comerciales. El servicio incluye:\n\n• Evaluación de riesgos y diseño del sistema\n• Instalación de panel de alarma principal\n• Instalación de sensores de movimiento PIR y apertura de puertas/ventanas\n• Instalación de sirena interior y exterior\n• Comunicación vía GSM, WiFi o línea telefónica\n• Configuración de zonas y perfiles de usuario\n• Enlace con central de monitoreo (opcional)\n• Capacitación en operación del sistema\n• Garantía de instalación incluida",
+      "pricing_type": "project",
+      "base_price": "280000.00",
+      "image": "",
+      "is_active": true,
+      "is_featured": true,
+      "includes_warranty": true,
+      "warranty_days": 90,
+      "created_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "services.service",
+    "pk": 3,
+    "fields": {
+      "name": "Instalación de Control de Acceso",
+      "slug": "instalacion-control-acceso",
+      "category": 1,
+      "short_description": "Instalación de lectores biométricos, tarjetas RFID y cerraduras electrónicas. Control total de quién entra y cuándo.",
+      "description": "Implementamos sistemas de control de acceso profesionales para empresas, edificios y residencias. El servicio incluye:\n\n• Estudio de puntos de acceso y flujo de personas\n• Instalación de lectores biométricos (huella, facial) o RFID\n• Instalación de cerraduras electromagnéticas o eléctricas\n• Configuración de software de gestión de accesos\n• Registro de usuarios y perfiles de horario\n• Integración con sistema de videovigilancia (opcional)\n• Generación de reportes de entradas y salidas\n• Soporte técnico post-instalación\n\nEspecialistas en equipos ZKTeco, Hikvision y Dahua.",
+      "pricing_type": "project",
+      "base_price": "400000.00",
+      "image": "",
+      "is_active": true,
+      "is_featured": false,
+      "includes_warranty": true,
+      "warranty_days": 90,
+      "created_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "services.service",
+    "pk": 4,
+    "fields": {
+      "name": "Instalación de Videoportero IP",
+      "slug": "instalacion-videoportero-ip",
+      "category": 1,
+      "short_description": "Instalación de videoporteros con cámara HD, audio bidireccional y apertura remota de puerta desde su smartphone.",
+      "description": "Instalamos videoporteros modernos que le permiten ver, hablar y abrir su puerta desde cualquier lugar del mundo con su celular. El servicio incluye:\n\n• Instalación del panel exterior con cámara HD y pulsador\n• Instalación de monitor interior o configuración en smartphone\n• Configuración de apertura remota de cerradura eléctrica\n• Configuración de notificaciones push al celular\n• Configuración de visualización remota vía app\n• Integración con sistema de videovigilancia existente (si aplica)\n• Garantía de mano de obra\n\nTrabajamos con videoporteros Hikvision, Dahua y Akuvox.",
+      "pricing_type": "project",
+      "base_price": "220000.00",
+      "image": "",
+      "is_active": true,
+      "is_featured": false,
+      "includes_warranty": true,
+      "warranty_days": 60,
+      "created_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "services.service",
+    "pk": 5,
+    "fields": {
+      "name": "Mantenimiento Preventivo CCTV",
+      "slug": "mantenimiento-preventivo-cctv",
+      "category": 2,
+      "short_description": "Revisión periódica de cámaras, grabadores y conexiones. Limpieza de lentes, actualización de firmware y optimización de imagen.",
+      "description": "El mantenimiento preventivo garantiza que su sistema de videovigilancia funcione de forma óptima todo el tiempo. El servicio incluye:\n\n• Inspección visual de cámaras y cableado\n• Limpieza de lentes y carcasas de cámaras\n• Verificación de cobertura y ángulo de visión\n• Revisión y ajuste de parámetros de imagen\n• Actualización de firmware de cámaras y grabadores\n• Verificación de espacio de almacenamiento y ciclo de grabación\n• Revisión de acceso remoto y conectividad\n• Informe técnico del estado del sistema\n• Recomendaciones de mejora\n\nDisponible en planes mensual, trimestral o semestral.",
+      "pricing_type": "monthly",
+      "base_price": "180000.00",
+      "image": "",
+      "is_active": true,
+      "is_featured": false,
+      "includes_warranty": false,
+      "warranty_days": 30,
+      "created_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "services.service",
+    "pk": 6,
+    "fields": {
+      "name": "Mantenimiento de Sistema de Alarma",
+      "slug": "mantenimiento-sistema-alarma",
+      "category": 2,
+      "short_description": "Revisión y mantenimiento de paneles, sensores, sirenas y batería de respaldo. Garantice que su alarma funcione cuando más lo necesita.",
+      "description": "Mantenga su sistema de alarma en perfecto estado con nuestro servicio de mantenimiento especializado. El servicio incluye:\n\n• Prueba de todos los sensores del sistema\n• Verificación de sirenas y señalización luminosa\n• Revisión y reemplazo de batería de respaldo (si aplica)\n• Prueba de comunicación GSM/telefónica con central\n• Actualización de firmware del panel\n• Revisión de zonas y programación\n• Informe técnico del estado\n\nGarantice que su alarma funcione en el momento que más lo necesita.",
+      "pricing_type": "fixed",
+      "base_price": "120000.00",
+      "image": "",
+      "is_active": true,
+      "is_featured": false,
+      "includes_warranty": false,
+      "warranty_days": 30,
+      "created_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "services.service",
+    "pk": 7,
+    "fields": {
+      "name": "Mantenimiento Correctivo y Reparación",
+      "slug": "mantenimiento-correctivo-reparacion",
+      "category": 2,
+      "short_description": "Diagnóstico y reparación de equipos de seguridad electrónica. Cámaras, grabadores, alarmas y control de acceso.",
+      "description": "Cuando algo falla, estamos listos para solucionarlo rápidamente. El servicio incluye:\n\n• Diagnóstico del equipo o sistema con falla\n• Reparación o reemplazo del componente defectuoso\n• Revisión general del sistema asociado\n• Garantía sobre la reparación realizada\n• Informe técnico del diagnóstico y solución\n\nAtendemos fallas en cámaras, grabadores NVR/DVR, paneles de alarma, lectores de acceso y videoporteros. Respuesta rápida disponible.",
+      "pricing_type": "hourly",
+      "base_price": "80000.00",
+      "image": "",
+      "is_active": true,
+      "is_featured": false,
+      "includes_warranty": true,
+      "warranty_days": 30,
+      "created_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "services.service",
+    "pk": 8,
+    "fields": {
+      "name": "Monitoreo 24/7 — Central de Alarmas",
+      "slug": "monitoreo-24-7-central-alarmas",
+      "category": 3,
+      "short_description": "Su sistema de alarma conectado a nuestra central de monitoreo. Personal capacitado verifica cada alerta y activa el protocolo de respuesta.",
+      "description": "Nuestro servicio de monitoreo 24/7 conecta su sistema de alarma a nuestra central, donde un equipo de operadores capacitados atiende cada evento en tiempo real. El servicio incluye:\n\n• Monitoreo permanente los 365 días del año\n• Verificación de alarmas antes de enviar respuesta\n• Contacto inmediato con el titular ante alarma confirmada\n• Solicitud de apoyo a autoridades (Policía / Bomberos) si se requiere\n• Historial de eventos accesible en línea\n• App móvil para seguimiento de eventos\n• Informes mensuales de actividad\n\nPlanes: Residencial desde $35.000/mes | Empresarial desde $65.000/mes.",
+      "pricing_type": "monthly",
+      "base_price": "35000.00",
+      "image": "",
+      "is_active": true,
+      "is_featured": true,
+      "includes_warranty": false,
+      "warranty_days": 0,
+      "created_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "services.service",
+    "pk": 9,
+    "fields": {
+      "name": "Monitoreo Remoto de Cámaras",
+      "slug": "monitoreo-remoto-camaras",
+      "category": 3,
+      "short_description": "Nuestros operadores monitorean sus cámaras en tiempo real y notifican ante cualquier situación anormal detectada.",
+      "description": "Servicio de monitoreo de videovigilancia donde nuestro equipo revisa sus cámaras en tiempo real y actúa ante cualquier evento sospechoso. El servicio incluye:\n\n• Monitoreo activo de cámaras IP durante el horario contratado\n• Detección de intrusos, merodeo o situaciones anómalas\n• Notificación inmediata por WhatsApp, llamada o email\n• Registro de incidentes con capturas de pantalla\n• Informe semanal de eventos detectados\n• Acceso a grabaciones recientes en cualquier momento\n\nIdeal para negocios, bodegas, conjuntos residenciales y empresas con activos críticos.",
+      "pricing_type": "monthly",
+      "base_price": "150000.00",
+      "image": "",
+      "is_active": true,
+      "is_featured": false,
+      "includes_warranty": false,
+      "warranty_days": 0,
+      "created_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "services.service",
+    "pk": 10,
+    "fields": {
+      "name": "Consultoría en Seguridad Electrónica",
+      "slug": "consultoria-seguridad-electronica",
+      "category": 4,
+      "short_description": "Evaluación profesional de riesgos y vulnerabilidades de su propiedad. Recomendaciones técnicas y plan de seguridad personalizado.",
+      "description": "Antes de invertir en equipos, conozca exactamente qué necesita y por qué. Nuestros consultores evalúan su propiedad y diseñan un plan de seguridad adaptado a sus riesgos reales. El servicio incluye:\n\n• Visita técnica y análisis de vulnerabilidades\n• Identificación de puntos críticos de acceso y cobertura\n• Evaluación de sistemas existentes (si los hay)\n• Recomendación de tecnología y marcas según presupuesto\n• Diseño de plano de cobertura de cámaras\n• Propuesta técnica y comercial detallada\n• Acompañamiento en el proceso de compra e instalación\n\nIdeal para empresas, conjuntos residenciales y propiedades grandes.",
+      "pricing_type": "fixed",
+      "base_price": "250000.00",
+      "image": "",
+      "is_active": true,
+      "is_featured": true,
+      "includes_warranty": false,
+      "warranty_days": 0,
+      "created_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "services.service",
+    "pk": 11,
+    "fields": {
+      "name": "Diseño de Sistema de Seguridad Integral",
+      "slug": "diseno-sistema-seguridad-integral",
+      "category": 4,
+      "short_description": "Diseño técnico completo de su sistema de seguridad. Planos, memorias técnicas, especificaciones de equipos y presupuesto detallado.",
+      "description": "Diseñamos sistemas de seguridad electrónica completos para proyectos de construcción, ampliaciones o renovaciones. El servicio incluye:\n\n• Estudio de planos arquitectónicos y recorrido de campo\n• Diseño de sistema CCTV con plano de cámaras y cobertura\n• Diseño de sistema de alarma con zonificación\n• Diseño de sistema de control de acceso\n• Memoria técnica con especificaciones de equipos\n• Lista de materiales detallada con precios de referencia\n• Presupuesto de instalación\n• Pliego técnico para licitación (si aplica)\n\nEntregable: documentación técnica completa lista para implementar.",
+      "pricing_type": "project",
+      "base_price": "500000.00",
+      "image": "",
+      "is_active": true,
+      "is_featured": false,
+      "includes_warranty": false,
+      "warranty_days": 0,
+      "created_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "services.service",
+    "pk": 12,
+    "fields": {
+      "name": "Capacitación en Manejo de NVR/DVR",
+      "slug": "capacitacion-manejo-nvr-dvr",
+      "category": 5,
+      "short_description": "Entrenamiento práctico para el manejo de grabadores de video. Reproducción, búsqueda de grabaciones, respaldo y configuración básica.",
+      "description": "Aprenda a sacarle el máximo provecho a su sistema de grabación. Capacitación práctica 100% personalizada sobre su equipo instalado. El servicio incluye:\n\n• Manejo de la interfaz del grabador\n• Reproducción y búsqueda de grabaciones por fecha y hora\n• Descarga y respaldo de videos específicos\n• Configuración de horarios de grabación\n• Ajuste de parámetros de imagen por cámara\n• Configuración de acceso remoto desde celular/PC\n• Gestión de usuarios y contraseñas\n• Material de apoyo digital\n\nDuración: 2 horas. Presencial en su instalación.",
+      "pricing_type": "fixed",
+      "base_price": "120000.00",
+      "image": "",
+      "is_active": true,
+      "is_featured": false,
+      "includes_warranty": false,
+      "warranty_days": 0,
+      "created_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "services.service",
+    "pk": 13,
+    "fields": {
+      "name": "Capacitación en Sistema de Alarmas",
+      "slug": "capacitacion-sistema-alarmas",
+      "category": 5,
+      "short_description": "Aprenda a activar, desactivar y administrar su sistema de alarma correctamente. Evite falsas alarmas y use todas las funciones disponibles.",
+      "description": "La mejor inversión en seguridad se completa cuando usted sabe cómo usar correctamente su sistema. Capacitación práctica personalizada. El servicio incluye:\n\n• Operación del panel de alarma (activar, desactivar, modo noche)\n• Gestión de usuarios y códigos de acceso\n• Interpretación de zonas y señales del panel\n• Procedimiento correcto ante alarma real vs. falsa alarma\n• Configuración de notificaciones en el teléfono\n• Comunicación con la central de monitoreo\n• Situaciones de emergencia y bypass temporal de zonas\n• Material de apoyo incluido\n\nDuración: 1.5 horas. Presencial en su instalación.",
+      "pricing_type": "fixed",
+      "base_price": "90000.00",
+      "image": "",
+      "is_active": true,
+      "is_featured": false,
+      "includes_warranty": false,
+      "warranty_days": 0,
+      "created_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "services.service",
+    "pk": 14,
+    "fields": {
+      "name": "Capacitación en Control de Acceso Biométrico",
+      "slug": "capacitacion-control-acceso-biometrico",
+      "category": 5,
+      "short_description": "Administración de usuarios, horarios y reportes en sistemas ZKTeco, Hikvision y Dahua. Para administradores de edificios y empresas.",
+      "description": "Entrene a los administradores de su empresa en el manejo completo del sistema de control de acceso. Capacitación práctica sobre su equipo real. El servicio incluye:\n\n• Inscripción y eliminación de usuarios (huella, facial, tarjeta)\n• Configuración de horarios y calendarios\n• Asignación de permisos por área\n• Consulta y exportación de reportes de acceso\n• Manejo de eventos e incidentes\n• Integración con nómina (si aplica)\n• Mantenimiento básico del lector\n• Manual de administración digital\n\nDuración: 3 horas. Presencial en sus instalaciones.",
+      "pricing_type": "fixed",
+      "base_price": "150000.00",
+      "image": "",
+      "is_active": true,
+      "is_featured": false,
+      "includes_warranty": false,
+      "warranty_days": 0,
+      "created_at": "2024-01-01T00:00:00Z"
+    }
+  }
+]

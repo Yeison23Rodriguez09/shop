@@ -1,0 +1,11 @@
+{
+  "slug": "nest-protect-co",
+  "name": "Detector de Monóxido de Carbono Nest Protect",
+  "price": 380000,
+  "stock": 12,
+  "sku": "NEST-PROTECT",
+  "brand": "Google Nest",
+  "description": "Autónomo con batería 5 años, también detecta humo. Alarma vocal, app, autoprueba cada 200 s.",
+  "images": [],
+  "active": true
+}

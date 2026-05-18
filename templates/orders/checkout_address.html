@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+{% block title %}Dirección de entrega — Nexo YR Secure{% endblock %}
+
+{% block extra_css %}
+<style>
+  .checkout-wrap{padding:2.5rem 0 4rem;}
+  .checkout-steps{display:flex;gap:0;margin-bottom:2.5rem;border-bottom:1px solid var(--ares-steel);padding-bottom:1rem;}
+  .step{display:flex;align-items:center;gap:.5rem;font-size:.8rem;letter-spacing:1px;text-transform:uppercase;color:var(--ares-steel);}
+  .step.active{color:var(--ares-accent);}
+  .step.done{color:var(--ares-silver);}
+  .step-num{width:24px;height:24px;border-radius:50%;border:1px solid currentColor;display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:700;}
+  .step-sep{flex:1;height:1px;background:var(--ares-steel);margin:0 .6rem;}
+  .form-section{background:var(--ares-gray);border:1px solid var(--ares-steel);border-radius:4px;padding:2rem;}
+  .form-section h4{font-family:'Rajdhani',sans-serif;font-size:1.1rem;font-weight:700;color:var(--ares-white);letter-spacing:1px;text-transform:uppercase;margin-bottom:1.2rem;padding-bottom:.6rem;border-bottom:1px solid var(--ares-steel);}
+  .form-label{color:var(--ares-silver);font-size:.75rem;letter-spacing:1px;text-transform:uppercase;margin-bottom:.35rem;}
+  .form-control,.form-select{background:var(--ares-mid);border:1px solid var(--ares-steel);color:var(--ares-light);border-radius:2px;padding:.6rem .9rem;}
+  .form-control:focus,.form-select:focus{border-color:var(--ares-accent);box-shadow:0 0 0 2px rgba(200,164,90,.15);color:var(--ares-white);background:var(--ares-mid);}
+  .form-control::placeholder{color:var(--ares-steel);}
+  .form-check-input{background-color:var(--ares-mid);border-color:var(--ares-steel);}
+  .form-check-input:checked{background-color:var(--ares-accent);border-color:var(--ares-accent);}
+  .form-check-label{color:var(--ares-silver);font-size:.85rem;}
+  .btn-next{width:100%;padding:.8rem;background:var(--ares-accent);color:var(--ares-black);font-family:'Rajdhani',sans-serif;font-weight:700;font-size:1rem;letter-spacing:2px;text-transform:uppercase;border:none;border-radius:2px;cursor:pointer;transition:background .2s;}
+  .btn-next:hover{background:#d4ae6a;}
+  .mini-cart{background:var(--ares-gray);border:1px solid var(--ares-steel);border-radius:4px;padding:1.2rem;}
+  .mini-cart h5{font-family:'Rajdhani',sans-serif;font-size:1rem;font-weight:700;color:var(--ares-white);letter-spacing:1px;text-transform:uppercase;margin-bottom:1rem;}
+  .mini-item{display:flex;justify-content:space-between;padding:.4rem 0;border-bottom:1px solid rgba(255,255,255,.05);font-size:.85rem;}
+  .mini-item:last-child{border:none;}
+  .mini-name{color:var(--ares-light);}
+  .mini-price{color:var(--ares-accent);font-family:'Rajdhani',sans-serif;font-weight:700;}
+  .errorlist{list-style:none;padding:0;margin:.3rem 0 0;color:#e74c3c;font-size:.8rem;}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container checkout-wrap">
+  <!-- Pasos -->
+  <div class="checkout-steps">
+    <div class="step active"><div class="step-num">1</div><span>Dirección</span></div>
+    <div class="step-sep"></div>
+    <div class="step"><div class="step-num">2</div><span>Pago</span></div>
+    <div class="step-sep"></div>
+    <div class="step"><div class="step-num">3</div><span>Confirmación</span></div>
+  </div>
+
+  <div class="row g-4">
+    <!-- Formulario -->
+    <div class="col-lg-8">
+      <div class="form-section">
+        <h4><i class="fa fa-map-marker-alt me-2" style="color:var(--ares-accent)"></i>Dirección de entrega</h4>
+        <form method="post" novalidate>
+          {% csrf_token %}
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label class="form-label">Nombre completo *</label>
+              {{ form.name }}
+              {% if form.name.errors %}<ul class="errorlist">{% for e in form.name.errors %}<li>{{ e }}</li>{% endfor %}</ul>{% endif %}
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Teléfono / WhatsApp *</label>
+              {{ form.phone }}
+              {% if form.phone.errors %}<ul class="errorlist">{% for e in form.phone.errors %}<li>{{ e }}</li>{% endfor %}</ul>{% endif %}
+            </div>
+            <div class="col-12">
+              <label class="form-label">Dirección completa *</label>
+              {{ form.address }}
+              {% if form.address.errors %}<ul class="errorlist">{% for e in form.address.errors %}<li>{{ e }}</li>{% endfor %}</ul>{% endif %}
+            </div>
+            <div class="col-md-5">
+              <label class="form-label">Ciudad *</label>
+              {{ form.city }}
+              {% if form.city.errors %}<ul class="errorlist">{% for e in form.city.errors %}<li>{{ e }}</li>{% endfor %}</ul>{% endif %}
+            </div>
+            <div class="col-md-5">
+              <label class="form-label">Departamento *</label>
+              {{ form.department }}
+            </div>
+            <div class="col-md-2">
+              <label class="form-label">Código postal</label>
+              {{ form.postal_code }}
+            </div>
+            <div class="col-12">
+              <label class="form-label">Instrucciones de entrega</label>
+              {{ form.notes }}
+            </div>
+            <div class="col-12">
+              <div class="form-check">
+                {{ form.save_address }}
+                <label class="form-check-label">Guardar dirección en mi perfil</label>
+              </div>
+            </div>
+            <div class="col-12 mt-2">
+              <button type="submit" class="btn-next">
+                Continuar al pago <i class="fa fa-arrow-right ms-2"></i>
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Mini resumen -->
+    <div class="col-lg-4">
+      <div class="mini-cart">
+        <h5>Resumen del pedido</h5>
+        {% for item in cart_items %}
+        <div class="mini-item">
+          <span class="mini-name">{{ item.product.name|truncatechars:30 }} ×{{ item.quantity }}</span>
+          <span class="mini-price">${{ item.total_price|floatformat:0 }}</span>
+        </div>
+        {% endfor %}
+        <div class="mini-item" style="margin-top:.5rem;padding-top:.8rem;border-top:1px solid var(--ares-steel) !important;border-bottom:none;">
+          <span style="color:var(--ares-white);font-weight:600;">Total</span>
+          <span style="color:var(--ares-accent);font-family:'Rajdhani',sans-serif;font-weight:700;font-size:1.1rem;">${{ total_price|floatformat:0 }}</span>
+        </div>
+      </div>
+      <p style="text-align:center;font-size:.75rem;color:var(--ares-silver);margin-top:1rem;">
+        <i class="fa fa-shield-alt me-1"></i>Tus datos están protegidos con cifrado SSL
+      </p>
+    </div>
+  </div>
+</div>
+{% endblock %}

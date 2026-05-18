@@ -1,0 +1,11 @@
+{
+  "slug": "sonoff-nspanel-pro",
+  "name": "Bridge Universal SONOFF NSPanel Pro",
+  "price": 980000,
+  "stock": 6,
+  "sku": "NSPANEL-PRO",
+  "brand": "Sonoff",
+  "description": "Panel táctil de pared con Zigbee 3.0 + WiFi + Ethernet. 3.9\", widgets de cámara y eWeLink.",
+  "images": [],
+  "active": true
+}

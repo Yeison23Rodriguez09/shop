@@ -1,0 +1,72 @@
+# render.yaml — Configuración de despliegue en Render (Blueprint)
+# ─────────────────────────────────────────────────────
+# Las credenciales sensibles (pagos, email, SECRET_KEY) se configuran
+# desde el panel de Render → Environment, NUNCA en este archivo.
+# ─────────────────────────────────────────────────────
+
+# ── Base de datos PostgreSQL gestionada (plan gratuito) ──────────────────────
+# Debe ir bajo la clave top-level `databases:` (NO como `type: pserv`, que es
+# un servicio privado, no una base de datos). `fromDatabase` la referencia.
+databases:
+  - name: ares-shop-db
+    plan: free
+    databaseName: ares_shop
+    user: ares_shop
+
+services:
+  # ── Servidor Web Django ──────────────────────────────────────────────────
+  - type: web
+    name: ares-shop
+    runtime: python
+    plan: free
+    branch: main
+    buildCommand: |
+      pip install -r requirements/prod.txt
+      python manage.py collectstatic --no-input
+      python manage.py migrate --no-input
+    startCommand: |
+      gunicorn config.wsgi:application --bind 0.0.0.0:$PORT --workers 3 --timeout 120 --access-logfile - --error-logfile -
+    healthCheckPath: /
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.11"
+
+      # ── Django ────────────────────────────────────────────────────────────
+      - key: DJANGO_SETTINGS_MODULE
+        value: config.settings.production
+      - key: DJANGO_ENV
+        value: production
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DJANGO_ALLOWED_HOSTS
+        value: ares-shop.onrender.com
+
+      # ── Base de datos (Render inyecta la connection string) ──────────────
+      - key: DATABASE_URL
+        fromDatabase:
+          name: ares-shop-db
+          property: connectionString
+
+      # ── CORS ──────────────────────────────────────────────────────────────
+      - key: CORS_ALLOWED_ORIGINS
+        value: https://ares-shop.onrender.com
+
+      # ── Seguridad ─────────────────────────────────────────────────────────
+      - key: SECURE_SSL_REDIRECT
+        value: "True"
+      - key: SECURE_HSTS_SECONDS
+        value: "86400"
+
+      # ── Configurar manualmente en el panel de Render → Environment ────────
+      # La app NO arranca sin estas (fail-fast intencional en production.py):
+      #   EMAIL_HOST_USER, EMAIL_HOST_PASSWORD
+      # Recomendadas:
+      #   EMAIL_HOST, EMAIL_PORT, DEFAULT_FROM_EMAIL, ORDER_FROM_EMAIL
+      #   SHOP_NAME, SHOP_CONTACT_PHONE, SHOP_CONTACT_EMAIL
+      #   SHOP_BANK_NAME, SHOP_BANK_ACCOUNT_NUMBER, SHOP_BANK_HOLDER_NAME
+      #   CSRF_TRUSTED_ORIGINS (https://ares-shop.onrender.com)
+      # Pasarelas de pago (opcionales):
+      #   WOMPI_PUBLIC_KEY, WOMPI_PRIVATE_KEY, WOMPI_INTEGRITY_KEY, WOMPI_EVENTS_KEY
+      #   PAYU_API_KEY, PAYU_API_LOGIN, PAYU_MERCHANT_ID, PAYU_ACCOUNT_ID
+      #   MP_PUBLIC_KEY, MP_ACCESS_TOKEN
+      #   STRIPE_PUBLIC_KEY, STRIPE_SECRET_KEY, STRIPE_WEBHOOK_SECRET

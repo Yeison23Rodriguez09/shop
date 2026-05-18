@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}{% trans "Categorías de Productos" %}{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="text-center mb-5">
+        <h1 class="fw-bold">{% trans "Categorías" %}</h1>
+        <p class="lead text-muted">{% trans "Explora nuestra selección de productos por categoría." %}</p>
+    </div>
+
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+        {% for category in categories %}
+        <div class="col">
+            <a href="{{ category.get_absolute_url }}" 
+               class="card text-decoration-none text-dark h-100 shadow-sm category-card">
+                <div class="card-body d-flex flex-column justify-content-center align-items-center text-center p-4">
+                    <h5 class="card-title mb-0">{{ category.name }}</h5>
+                </div>
+            </a>
+        </div>
+        {% empty %}
+        <div class="col-12">
+            <div class="alert alert-info text-center mb-0" role="alert">
+                {% trans "No hay categorías disponibles en este momento." %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<style>
+.c

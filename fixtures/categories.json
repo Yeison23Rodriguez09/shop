@@ -1,0 +1,92 @@
+[
+  {
+    "model": "catalog.category",
+    "pk": 1,
+    "fields": {
+      "name": "Cámaras de Seguridad",
+      "slug": "camaras-de-seguridad",
+      "description": "Cámaras IP, domo, bullet, PTZ y térmicas para vigilancia profesional.",
+      "icon": "fa-camera"
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 2,
+    "fields": {
+      "name": "Sistemas de Alarma",
+      "slug": "sistemas-de-alarma",
+      "description": "Paneles de alarma, detectores, sirenas y teclados para hogares y empresas.",
+      "icon": "fa-bell"
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 3,
+    "fields": {
+      "name": "Control de Acceso",
+      "slug": "control-de-acceso",
+      "description": "Lectores biométricos, tarjetas RFID, torniquetes y controladoras.",
+      "icon": "fa-fingerprint"
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 4,
+    "fields": {
+      "name": "Videoporteros e Intercomunicadores",
+      "slug": "videoporteros-intercomunicadores",
+      "description": "Sistemas de videoportería IP y analógica para residencias y edificios.",
+      "icon": "fa-door-open"
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 5,
+    "fields": {
+      "name": "Grabadores NVR / DVR",
+      "slug": "grabadores-nvr-dvr",
+      "description": "Grabadores de video en red (NVR), grabadores digitales (DVR) e híbridos.",
+      "icon": "fa-hdd"
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 6,
+    "fields": {
+      "name": "Cerraduras Electrónicas",
+      "slug": "cerraduras-electronicas",
+      "description": "Cerraduras biométricas, por tarjeta, PIN y electromagnéticas.",
+      "icon": "fa-lock"
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 7,
+    "fields": {
+      "name": "Sensores y Detectores",
+      "slug": "sensores-detectores",
+      "description": "Detectores de movimiento, humo, gas, temperatura e inundación.",
+      "icon": "fa-radiation"
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 8,
+    "fields": {
+      "name": "Networking y Switches PoE",
+      "slug": "networking-switches-poe",
+      "description": "Switches PoE, routers y equipos de red para infraestructura de seguridad.",
+      "icon": "fa-network-wired"
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 9,
+    "fields": {
+      "name": "Accesorios e Instalación",
+      "slug": "accesorios-instalacion",
+      "description": "Fuentes de poder, carcasas, soportes, cables y herramientas de instalación.",
+      "icon": "fa-tools"
+    }
+  }
+]

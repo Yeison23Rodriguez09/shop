@@ -1,0 +1,61 @@
+<!-- beauty_shop/templates/emails/order_confirmation.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Confirmación de tu Pedido - Nexo YR Secure</title>
+</head>
+<body style="font-family: Arial, sans-serif; margin: 0; padding: 20px; background-color: #f4f4f4;">
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+            <td align="center">
+                <table width="600" border="0" cellspacing="0" cellpadding="20" style="background-color: #ffffff; border-radius: 8px; border: 1px solid #dddddd;">
+                    <tr>
+                        <td align="center" style="border-bottom: 2px solid #eeeeee;">
+                            <h1 style="color: #e91e63;">¡Gracias por tu compra!</h1>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="color: #333333; font-size: 16px; line-height: 1.5;">
+                            <p>Hola {{ user.first_name|default:user.username }},</p>
+                            <p>Hemos recibido tu pedido <strong>#{{ order.id }}</strong> y ya lo estamos preparando. Aquí tienes un resumen de tu compra:</p>
+
+                            <table width="100%" border="0" cellspacing="0" cellpadding="10" style="margin-top: 20px; border: 1px solid #dddddd;">
+                                <thead style="background-color: #f8f8f8;">
+                                    <tr>
+                                        <th style="text-align: left;">Producto</th>
+                                        <th style="text-align: center;">Cantidad</th>
+                                        <th style="text-align: right;">Precio</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for item in order.items.all %}
+                                    <tr>
+                                        <td>{{ item.product.name }}</td>
+                                        <td style="text-align: center;">{{ item.quantity }}</td>
+                                        <td style="text-align: right;">${{ item.price|floatformat:2 }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                                <tfoot style="font-weight: bold;">
+                                    <tr>
+                                        <td colspan="2" style="text-align: right; border-top: 2px solid #dddddd;">Total:</td>
+                                        <td style="text-align: right; border-top: 2px solid #dddddd;">${{ order.total|floatformat:2 }}</td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+
+                            <p style="margin-top: 20px;">Te enviaremos otro correo tan pronto como tu pedido sea enviado. ¡Gracias por confiar en Nexo YR Secure!</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="center" style="border-top: 1px solid #eeeeee; font-size: 12px; color: #777777; padding-top: 20px;">
+                            Nexo YR Secure | Bogotá, Colombia | <a href="http://127.0.0.1:8000" style="color: #e91e63;">Visita nuestra tienda</a>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

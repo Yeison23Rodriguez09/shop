@@ -1,0 +1,1 @@
+# beauty_shop/config/settings/__init__.py

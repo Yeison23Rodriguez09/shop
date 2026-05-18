@@ -1,0 +1,11 @@
+{
+  "slug": "homey-bridge",
+  "name": "Aplicación/Autómata Homey Bridge",
+  "price": 480000,
+  "stock": 8,
+  "sku": "HOMEY-BRIDGE",
+  "brand": "Homey",
+  "description": "Unifica 50 000+ dispositivos. Zigbee, Z-Wave, WiFi, IR y RF 433. Flujos sin programar.",
+  "images": [],
+  "active": true
+}

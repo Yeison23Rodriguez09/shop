@@ -1,0 +1,11 @@
+{
+  "slug": "dsc-ws4929",
+  "name": "Mando DSC WS4929",
+  "price": 75000,
+  "stock": 30,
+  "sku": "WS4929",
+  "brand": "DSC",
+  "description": "Control bidireccional 4 botones para PowerSeries. Confirmación de armado vía LED.",
+  "images": [],
+  "active": true
+}

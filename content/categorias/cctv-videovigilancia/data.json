@@ -1,0 +1,8 @@
+{
+  "name": "CCTV / Videovigilancia",
+  "slug": "cctv-videovigilancia",
+  "description": "Camaras, DVR, NVR, kits y accesorios para sistemas de videovigilancia profesional.",
+  "icon": "fa-video",
+  "order": 1,
+  "is_active": true
+}

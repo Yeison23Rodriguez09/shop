@@ -1,0 +1,11 @@
+{
+  "slug": "mifare-1k-zkteco",
+  "name": "Tarjeta Mifare Classic 1K 13.56 MHz ZKTeco",
+  "price": 5500,
+  "stock": 200,
+  "sku": "MIFARE-1K",
+  "brand": "ZKTeco",
+  "description": "NXP MF1S50, 1 KB, sectores y llaves. Compatible con la mayoría de lectores MIFARE.",
+  "images": [],
+  "active": true
+}

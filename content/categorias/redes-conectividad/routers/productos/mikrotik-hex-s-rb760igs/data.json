@@ -1,0 +1,11 @@
+{
+  "slug": "mikrotik-hex-s-rb760igs",
+  "name": "Router VPN Gigabit MikroTik hEX S RB760iGS",
+  "price": 285000,
+  "stock": 12,
+  "sku": "RB760IGS",
+  "brand": "MikroTik",
+  "description": "5 Gigabit Ethernet + SFP, PoE pasivo. RouterOS L4, IPsec/OpenVPN/WireGuard, firewall, QoS. Dual-core 880 MHz.",
+  "images": [],
+  "active": true
+}

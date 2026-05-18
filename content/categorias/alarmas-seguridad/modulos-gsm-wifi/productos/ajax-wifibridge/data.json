@@ -1,0 +1,11 @@
+{
+  "slug": "ajax-wifibridge",
+  "name": "Módulo WiFi Ajax WifiBridge",
+  "price": 195000,
+  "stock": 14,
+  "sku": "AJAX-WIFIBRIDGE",
+  "brand": "Ajax",
+  "description": "Conecta hubs Ajax a WiFi en lugar de Ethernet. USB, configuración rápida.",
+  "images": [],
+  "active": true
+}

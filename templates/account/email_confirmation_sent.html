@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}Correo enviado{% endblock %}
+
+{% block content %}
+<div class="alert alert-success rounded-4 shadow-sm" style="background-color: #E4E6E3; color: #343A40;">
+  <h4 class="mb-3" style="font-family: 'Playfair Display', serif;">
+    {% trans "Verificación de correo enviada" %}
+  </h4>
+  <p>{% trans "Te hemos enviado un email con un enlace para confirmar tu dirección. Por favor, revisa tu bandeja de entrada." %}</p>
+</div>
+{% endblock %}

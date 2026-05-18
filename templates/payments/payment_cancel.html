@@ -1,0 +1,32 @@
+<!-- Pago cancelado -->
+{% extends "base.html" %}
+
+{% block title %}Pago Cancelado{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-8 mx-auto">
+            <div class="card shadow-sm text-center border-warning">
+                <div class="card-body p-5">
+                    <i class="fas fa-exclamation-triangle fa-4x text-warning mb-4"></i>
+                    <h1 class="card-title">Proceso de Pago Cancelado</h1>
+                    <p class="lead">
+                        Parece que has cancelado el proceso de pago o ha ocurrido un error.
+                    </p>
+                    <hr>
+                    <div class="my-4">
+                        <p class="text-muted">
+                            No te preocupes, no se ha realizado ningún cargo en tu cuenta. Tu carrito de compras ha sido guardado y puedes intentar finalizar la compra de nuevo cuando quieras.
+                        </p>
+                    </div>
+                    <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+                        <a href="{% url 'cart:cart_detail' %}" class="btn btn-primary btn-lg">Volver al Carrito</a>
+                        <a href="{% url 'core:contact' %}" class="btn btn-outline-secondary btn-lg">Contactar a Soporte</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

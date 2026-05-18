@@ -1,0 +1,145 @@
+{% extends 'base.html' %}
+
+{% block title %}Nexo YR Secure — Tienda de Seguridad Electrónica{% endblock %}
+
+{% block content %}
+
+<!-- ============================================================
+     HERO con blob azul marino + cian
+     ============================================================ -->
+<section class="hero">
+  <span class="hero-blob"></span>
+  <span class="hero-blob two"></span>
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-8">
+        <p class="text-accent fw-bold mb-2" style="font-size:.8rem;letter-spacing:3px;text-transform:uppercase">
+          <i class="fa fa-shield-halved me-2"></i>Nexo YR Secure
+        </p>
+        <h1 class="hero-title">Tienda de Seguridad<br>Electrónica <span>Nexo YR Secure</span></h1>
+        <p class="hero-sub">Equipos y servicios profesionales: CCTV, alarmas, control de acceso, redes, instalación, mantenimiento y soporte.</p>
+        <div class="d-flex gap-3 flex-wrap">
+          <a href="{% url 'catalog:product_list' %}" class="btn-ares" style="padding:.85rem 2.2rem;">
+            <i class="fa fa-store me-2"></i>Ir al catálogo
+          </a>
+          <a href="{% url 'core:contact' %}" class="btn-ares-outline" style="padding:.8rem 2rem;">Contáctanos</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     6 BOTONES FEATURES (cada uno redirige a SHOP o CONTACTO)
+     ============================================================ -->
+<section class="py-5">
+  <div class="container">
+    <div class="text-center mb-5">
+      <h2 class="section-title">¿Qué <span>necesitas</span>?</h2>
+      <p class="text-silver mt-2">Accede directo a lo que buscas.</p>
+    </div>
+    <div class="row g-4">
+      <div class="col-6 col-md-4">
+        <a href="{% url 'catalog:product_list' %}?tipo=service&categoria=instalaciones" class="feature-box h-100 d-block text-decoration-none">
+          <i class="fa fa-screwdriver-wrench"></i>
+          <h5>Instalaciones</h5>
+          <p>Montaje profesional de tus sistemas.</p>
+        </a>
+      </div>
+      <div class="col-6 col-md-4">
+        <a href="{% url 'catalog:product_list' %}" class="feature-box h-100 d-block text-decoration-none">
+          <i class="fa fa-award"></i>
+          <h5>Marcas líderes</h5>
+          <p>Catálogo completo de equipos.</p>
+        </a>
+      </div>
+      <div class="col-6 col-md-4">
+        <a href="{% url 'catalog:product_list' %}?tipo=service&categoria=monitoreo" class="feature-box h-100 d-block text-decoration-none">
+          <i class="fa fa-eye"></i>
+          <h5>Monitoreos</h5>
+          <p>Vigilancia y monitoreo 24/7.</p>
+        </a>
+      </div>
+      <div class="col-6 col-md-4">
+        <a href="{% url 'core:contact' %}" class="feature-box h-100 d-block text-decoration-none">
+          <i class="fa fa-star"></i>
+          <h5>Experiencia</h5>
+          <p>Asesoría experta — escríbenos.</p>
+        </a>
+      </div>
+      <div class="col-6 col-md-4">
+        <a href="{% url 'catalog:product_list' %}?tipo=product" class="feature-box h-100 d-block text-decoration-none">
+          <i class="fa fa-microchip"></i>
+          <h5>Tecnologías</h5>
+          <p>Todos nuestros productos.</p>
+        </a>
+      </div>
+      <div class="col-6 col-md-4">
+        <a href="{% url 'catalog:product_list' %}?tipo=service&categoria=mantenimientos" class="feature-box h-100 d-block text-decoration-none">
+          <i class="fa fa-tools"></i>
+          <h5>Mantenimiento</h5>
+          <p>Soporte y mantenimiento preventivo.</p>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     DESTACADOS (6 productos/servicios)
+     ============================================================ -->
+<section style="background:var(--bg-deep);border-top:1px solid var(--border-color);border-bottom:1px solid var(--border-color);" class="py-5">
+  <div class="container">
+    <div class="d-flex justify-content-between align-items-end mb-4 flex-wrap gap-2">
+      <h2 class="section-title mb-0">Destacados</h2>
+      <a href="{% url 'catalog:product_list' %}" class="btn-ares-outline" style="font-size:.78rem">Ver todo</a>
+    </div>
+    <div class="row g-4">
+      {% for item in featured_items %}
+      <div class="col-sm-6 col-md-4">
+        <div class="ares-card h-100 d-flex flex-column">
+          <a href="{% url 'catalog:product_detail' slug=item.slug %}" style="text-decoration:none">
+            <!-- Imagen del producto/servicio destacado -->
+            <div class="featured-img">
+              {% if item.get_image %}
+                <img src="{{ item.get_image }}"
+                     alt="{{ item.name }}"
+                     loading="lazy"
+                     onerror="this.onerror=null;this.parentElement.innerHTML='<div class=&quot;placeholder-icon&quot;>{% if item.is_service %}🔧{% else %}📦{% endif %}</div>'">
+              {% else %}
+                <div class="placeholder-icon">{% if item.is_service %}🔧{% else %}📦{% endif %}</div>
+              {% endif %}
+            </div>
+            <div class="card-body flex-grow-1">
+              <small class="text-accent" style="font-size:.7rem;letter-spacing:1px;text-transform:uppercase">
+                {% if item.is_service %}Servicio{% else %}Producto{% endif %}{% if item.category %} · {{ item.category.name }}{% endif %}
+              </small>
+              <h5 class="card-title mt-1">{{ item.name }}</h5>
+              <p class="card-text">{{ item.description|truncatechars:70 }}</p>
+            </div>
+          </a>
+          <div class="px-3 pb-3 d-flex justify-content-between align-items-center">
+            <span class="ares-price">{% if item.is_service and item.price == 0 %}A cotizar{% else %}${{ item.price|floatformat:0 }}{% endif %}</span>
+            <a href="{% url 'catalog:product_detail' slug=item.slug %}" class="btn-ares-outline" style="font-size:.72rem;padding:.4rem .9rem;">Ver detalles</a>
+          </div>
+        </div>
+      </div>
+      {% empty %}
+      <div class="col-12 text-center">
+        <p class="text-silver">Aún no hay productos publicados. Importa el catálogo con <code>import_catalog</code>.</p>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="py-5 text-center">
+  <div class="container">
+    <h2 class="section-title mb-3">¿Necesitas <span>asesoría</span>?</h2>
+    <p class="text-silver mx-auto mb-4" style="max-width:520px;">Cuéntanos tu proyecto y te contactamos en menos de 24 horas.</p>
+    <a href="{% url 'core:contact' %}" class="btn-ares" style="font-size:1rem;padding:.9rem 2.6rem;">Solicitar cotización</a>
+  </div>
+</section>
+
+{% endblock %}

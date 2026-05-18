@@ -1,0 +1,11 @@
+{
+  "slug": "zkteco-atlas-200",
+  "name": "Controlador de Acceso ZKTeco Atlas 200",
+  "price": 850000,
+  "stock": 9,
+  "sku": "ATLAS-200",
+  "brand": "ZKTeco",
+  "description": "Multibiométrico para 1 puerta, huella (3000), tarjeta y PIN. TCP/IP y USB, 100 000 eventos. Software ZKBio CVSecurity.",
+  "images": [],
+  "active": true
+}

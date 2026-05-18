@@ -1,0 +1,11 @@
+{
+  "slug": "athom-homey-voice",
+  "name": "Controlador de Voz Athom Homey Voice",
+  "price": 380000,
+  "stock": 9,
+  "sku": "HOMEY-VOICE",
+  "brand": "Athom",
+  "description": "Voz local en ecosistema Homey, comandos personalizados sin depender de la nube.",
+  "images": [],
+  "active": true
+}

@@ -1,0 +1,150 @@
+{% extends "base.html" %}
+{% block title %}Carrito — Nexo YR Secure{% endblock %}
+
+{% block extra_css %}
+<style>
+  .cart-wrap{padding:2rem 0 4rem;}
+  .cart-title{font-family:'Rajdhani',sans-serif;font-size:1.8rem;font-weight:700;color:var(--ares-white);letter-spacing:2px;text-transform:uppercase;margin-bottom:1.5rem;}
+  .cart-table{width:100%;border-collapse:collapse;}
+  .cart-table th{color:var(--ares-silver);font-size:.72rem;letter-spacing:2px;text-transform:uppercase;padding:.6rem 1rem;border-bottom:1px solid var(--ares-steel);text-align:left;}
+  .cart-table td{padding:.9rem 1rem;border-bottom:1px solid rgba(255,255,255,.05);vertical-align:middle;}
+  .cart-img{width:64px;height:64px;object-fit:cover;border-radius:2px;}
+  .cart-img-placeholder{width:64px;height:64px;background:var(--ares-mid);border-radius:2px;display:flex;align-items:center;justify-content:center;color:var(--ares-steel);font-size:1.4rem;}
+  .product-name{color:var(--ares-white);font-weight:600;font-size:.95rem;display:block;}
+  .product-meta{color:var(--ares-silver);font-size:.78rem;}
+  .qty-input{width:64px;background:var(--ares-mid);border:1px solid var(--ares-steel);color:var(--ares-white);border-radius:2px;padding:.3rem .5rem;text-align:center;}
+  .price-col{color:var(--ares-accent);font-family:'Rajdhani',sans-serif;font-weight:700;font-size:1.05rem;}
+  .btn-remove{background:none;border:none;color:var(--ares-silver);cursor:pointer;padding:.3rem .5rem;transition:color .2s;}
+  .btn-remove:hover{color:#e74c3c;}
+  .cart-summary{background:var(--ares-gray);border:1px solid var(--ares-steel);border-radius:4px;padding:1.5rem;}
+  .s-row{display:flex;justify-content:space-between;align-items:center;padding:.5rem 0;border-bottom:1px solid rgba(255,255,255,.05);}
+  .s-row:last-child{border-bottom:none;}
+  .s-label{color:var(--ares-silver);font-size:.85rem;}
+  .s-value{color:var(--ares-white);font-family:'Rajdhani',sans-serif;font-weight:700;}
+  .btn-checkout{display:block;width:100%;padding:.85rem;background:var(--ares-accent);color:var(--ares-black) !important;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:1rem;letter-spacing:2px;text-transform:uppercase;border:none;border-radius:2px;cursor:pointer;transition:background .2s;text-align:center;text-decoration:none !important;margin-top:1rem;}
+  .btn-checkout:hover{background:#d4ae6a;}
+  .btn-clear{background:none;border:1px solid var(--ares-steel);color:var(--ares-silver);padding:.4rem 1rem;border-radius:2px;font-size:.8rem;cursor:pointer;transition:all .2s;}
+  .btn-clear:hover{border-color:#e74c3c;color:#e74c3c;}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container cart-wrap">
+  <div class="d-flex align-items-center justify-content-between mb-3 flex-wrap gap-2">
+    <h1 class="cart-title mb-0"><i class="fa fa-shopping-cart me-2" style="color:var(--ares-accent)"></i>Mi Carrito</h1>
+    {% if cart_items %}
+    <form method="post" action="{% url 'cart:clear' %}">{% csrf_token %}
+      <button class="btn-clear" type="submit"><i class="fa fa-trash me-1"></i>Vaciar</button>
+    </form>
+    {% endif %}
+  </div>
+
+  {% if cart_items %}
+  <div class="row g-4">
+    <div class="col-lg-8">
+      <div style="background:var(--ares-gray);border:1px solid var(--ares-steel);border-radius:4px;overflow-x:auto;">
+        <table class="cart-table">
+          <thead>
+            <tr>
+              <th>Producto</th>
+              <th class="text-center">Cant.</th>
+              <th class="text-end">Precio</th>
+              <th class="text-end">Subtotal</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for item in cart_items %}
+            <tr>
+              <td>
+                <div class="d-flex align-items-center gap-3">
+                  {% if item.product.get_image %}
+                  <img src="{{ item.product.get_image }}" alt="{{ item.product.name }}" class="cart-img"
+                       onerror="this.onerror=null;this.outerHTML='<div class=&quot;cart-img-placeholder&quot;><i class=&quot;fa fa-camera&quot;></i></div>'">
+                  {% else %}
+                  <div class="cart-img-placeholder"><i class="fa fa-camera"></i></div>
+                  {% endif %}
+                  <div>
+                    <span class="product-name">{{ item.product.name }}</span>
+                    {% if item.product.model_number %}<span class="product-meta d-block">Ref: {{ item.product.model_number }}</span>{% endif %}
+                    {% if item.product.brand %}<span class="product-meta">{{ item.product.brand.name }}</span>{% endif %}
+                  </div>
+                </div>
+              </td>
+              <td class="text-center">
+                <form method="post" action="{% url 'cart:update' item.product.id %}">{% csrf_token %}
+                  <input type="number" name="quantity" value="{{ item.quantity }}" min="1" max="99"
+                    class="qty-input" onchange="this.form.submit()">
+                </form>
+              </td>
+              <td class="text-end price-col">${{ item.price|floatformat:0 }}</td>
+              <td class="text-end price-col">${{ item.total_price|floatformat:0 }}</td>
+              <td class="text-end">
+                <form method="post" action="{% url 'cart:remove' item.product.id %}">{% csrf_token %}
+                  <button class="btn-remove" type="submit" title="Eliminar"><i class="fa fa-times"></i></button>
+                </form>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <div class="mt-3">
+        <a href="{% url 'catalog:product_list' %}" style="color:var(--ares-silver);font-size:.85rem;text-decoration:none;">
+          <i class="fa fa-arrow-left me-1"></i>Seguir comprando
+        </a>
+      </div>
+    </div>
+
+    <div class="col-lg-4">
+      <div class="cart-summary">
+        <h5 style="font-family:'Rajdhani',sans-serif;font-size:1.1rem;font-weight:700;color:var(--ares-white);letter-spacing:1px;text-transform:uppercase;margin-bottom:1rem;">Resumen</h5>
+        <div class="s-row">
+          <span class="s-label">Subtotal</span>
+          <span class="s-value">${{ total_price|floatformat:0 }}</span>
+        </div>
+        <div class="s-row">
+          <span class="s-label">Envío estimado</span>
+          <span class="s-value" style="color:{% if total_price >= 500000 %}#27ae60{% else %}var(--ares-accent){% endif %}">
+            {% if total_price >= 500000 %}GRATIS{% else %}$15.000{% endif %}
+          </span>
+        </div>
+        <div class="s-row" style="border-top:1px solid var(--ares-steel);margin-top:.4rem;padding-top:.8rem;">
+          <span class="s-label" style="color:var(--ares-white);font-weight:600;">Total</span>
+          <span class="s-value" style="color:var(--ares-accent);font-size:1.3rem;">
+            {% if total_price >= 500000 %}${{ total_price|floatformat:0 }}{% else %}${{ total_price|add:15000|floatformat:0 }}{% endif %}
+          </span>
+        </div>
+        {% if total_price < 500000 %}
+        <p style="font-size:.78rem;color:var(--ares-accent);margin-top:.6rem;background:rgba(200,164,90,.08);padding:.5rem .7rem;border-radius:2px;">
+          <i class="fa fa-truck me-1"></i>Agrega más productos y obtén envío gratis sobre $500.000
+        </p>
+        {% endif %}
+
+        <a href="{% url 'orders:checkout_address' %}" class="btn-checkout">
+          <i class="fa fa-lock me-2"></i>Pagar ahora
+        </a>
+        <p style="text-align:center;font-size:.73rem;color:var(--ares-silver);margin-top:.7rem;">
+          <i class="fa fa-shield-alt me-1"></i>Pago seguro · Cifrado SSL
+        </p>
+      </div>
+      <div style="margin-top:1rem;padding:.9rem;background:var(--ares-gray);border:1px solid var(--ares-steel);border-radius:4px;text-align:center;">
+        <p style="color:var(--ares-silver);font-size:.7rem;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:.4rem;">Aceptamos</p>
+        <p style="color:var(--ares-light);font-size:.82rem;margin:0;">Wompi · PayU · MercadoPago</p>
+        <p style="color:var(--ares-silver);font-size:.75rem;margin:.3rem 0 0;">Tarjeta · PSE · Nequi · Efectivo</p>
+      </div>
+    </div>
+  </div>
+
+  {% else %}
+  <div class="text-center py-5">
+    <i class="fa fa-shopping-cart" style="font-size:3.5rem;color:var(--ares-steel);margin-bottom:1rem;display:block;"></i>
+    <h4 style="font-family:'Rajdhani',sans-serif;color:var(--ares-white);font-size:1.4rem;letter-spacing:1px;">Tu carrito está vacío</h4>
+    <p style="color:var(--ares-silver);margin-bottom:2rem;">Explora nuestro catálogo y agrega los equipos que necesitas.</p>
+    <a href="{% url 'catalog:product_list' %}" style="background:var(--ares-accent);color:var(--ares-black);padding:.75rem 2rem;border-radius:2px;text-decoration:none;font-family:'Rajdhani',sans-serif;font-weight:700;letter-spacing:2px;text-transform:uppercase;">
+      Ver catálogo
+    </a>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

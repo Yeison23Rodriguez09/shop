@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}Cerrar sesión — Nexo YR Secure{% endblock %}
+
+{% block extra_css %}
+<style>
+  .auth-wrap{min-height:calc(100vh - 140px);display:flex;align-items:center;justify-content:center;padding:2rem 1rem;}
+  .auth-box{background:var(--ares-gray);border:1px solid var(--ares-steel);border-radius:4px;padding:2.5rem;width:100%;max-width:420px;text-align:center;}
+  .auth-logo{font-family:'Rajdhani',sans-serif;font-size:2rem;font-weight:700;color:var(--ares-white);letter-spacing:4px;text-decoration:none;display:block;margin-bottom:.3rem;}
+  .auth-logo span{color:var(--ares-accent);}
+  .btn-auth{width:100%;padding:.75rem;background:var(--ares-accent);color:var(--ares-black);font-family:'Rajdhani',sans-serif;font-weight:700;font-size:1rem;letter-spacing:2px;text-transform:uppercase;border:none;border-radius:2px;cursor:pointer;transition:background .2s;}
+  .btn-auth:hover{background:#d4ae6a;}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="auth-wrap">
+  <div class="auth-box">
+    <a class="auth-logo" href="{% url 'core:home' %}">AR<span>E</span>S</a>
+    <p style="color:var(--ares-silver);font-size:.82rem;letter-spacing:1px;text-transform:uppercase;margin-bottom:2rem">Seguridad Electrónica</p>
+    <i class="fa fa-sign-out-alt text-accent" style="font-size:2.5rem;margin-bottom:1.2rem;display:block"></i>
+    <h5 style="font-family:'Rajdhani',sans-serif;color:var(--ares-white);font-size:1.2rem;letter-spacing:1px;text-transform:uppercase;margin-bottom:.8rem">¿Cerrar sesión?</h5>
+    <p style="color:var(--ares-silver);font-size:.88rem;margin-bottom:1.5rem">¿Estás seguro de que quieres salir del sistema?</p>
+    <form method="post" action="{% url 'account_logout' %}">
+      {% csrf_token %}
+      <button type="submit" class="btn-auth mb-3"><i class="fa fa-sign-out-alt me-2"></i>Sí, cerrar sesión</button>
+    </form>
+    <a href="{% url 'core:home' %}" style="color:var(--ares-silver);font-size:.85rem;text-decoration:none">Cancelar y volver al inicio</a>
+  </div>
+</div>
+{% endblock %}

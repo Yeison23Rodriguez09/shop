@@ -1,0 +1,13 @@
+<!-- Email confirmado -->
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}Correo confirmado{% endblock %}
+
+{% block content %}
+<div class="alert alert-success rounded-4 shadow-sm mx-auto" style="max-width: 600px; background-color: #E4E6E3; color: #343A40;">
+  <h4 class="mb-3" style="font-family: 'Playfair Display', serif;">¡Correo confirmado!</h4>
+  <p>Tu dirección de correo ha sido verificada correctamente. Ya puedes continuar navegando en Nexo YR Secure.</p>
+  <a href="/" class="btn btn-success rounded-pill mt-3" style="background-color: #A3B18A; border: none;">Volver a la tienda</a>
+</div>
+{% endblock %}

@@ -1,0 +1,8 @@
+{
+  "name": "Alarmas de Seguridad",
+  "slug": "alarmas-seguridad",
+  "description": "Sistemas y componentes para alarmas residenciales y comerciales.",
+  "icon": "fa-bell",
+  "order": 2,
+  "is_active": true
+}

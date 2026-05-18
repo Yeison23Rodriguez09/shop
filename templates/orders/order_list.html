@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% block title %}Mis Pedidos — Nexo YR Secure{% endblock %}
+
+{% block extra_css %}
+<style>
+  .orders-wrap{padding:2rem 0 4rem;}
+  .page-title{font-family:'Rajdhani',sans-serif;font-size:1.7rem;font-weight:700;color:var(--ares-white);letter-spacing:2px;text-transform:uppercase;}
+  .order-card{background:var(--ares-gray);border:1px solid var(--ares-steel);border-radius:4px;padding:1.2rem 1.4rem;margin-bottom:.9rem;transition:border-color .2s;}
+  .order-card:hover{border-color:var(--ares-accent);}
+  .order-ref{font-family:'Rajdhani',sans-serif;font-size:.85rem;letter-spacing:2px;color:var(--ares-silver);text-transform:uppercase;}
+  .order-id{font-family:'Rajdhani',sans-serif;font-size:1.15rem;font-weight:700;color:var(--ares-white);}
+  .order-date{color:var(--ares-silver);font-size:.8rem;}
+  .order-total{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:1.1rem;color:var(--ares-accent);}
+  .order-items-count{color:var(--ares-silver);font-size:.78rem;}
+  .status-badge{display:inline-block;padding:.22rem .65rem;border-radius:2px;font-size:.68rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;}
+  .btn-detail{display:inline-block;padding:.35rem .9rem;border:1px solid var(--ares-steel);color:var(--ares-silver);border-radius:2px;text-decoration:none;font-size:.8rem;transition:all .2s;white-space:nowrap;}
+  .btn-detail:hover{border-color:var(--ares-accent);color:var(--ares-accent);}
+  .empty-state{text-align:center;padding:4rem 0;}
+  .empty-icon{font-size:3.5rem;color:var(--ares-steel);margin-bottom:1.2rem;display:block;}
+  .stat-pill{display:inline-flex;align-items:center;gap:.4rem;background:var(--ares-mid);border:1px solid var(--ares-steel);border-radius:2px;padding:.3rem .7rem;font-size:.75rem;color:var(--ares-silver);}
+  .stat-pill strong{color:var(--ares-white);font-family:'Rajdhani',sans-serif;}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container orders-wrap">
+  <div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-3">
+    <h1 class="page-title mb-0"><i class="fa fa-box-open me-2" style="color:var(--ares-accent)"></i>Mis Pedidos</h1>
+    {% if orders %}
+    <div class="d-flex gap-2 flex-wrap">
+      <span class="stat-pill"><strong>{{ orders|length }}</strong> pedido{{ orders|length|pluralize:"s" }}</span>
+    </div>
+    {% endif %}
+  </div>
+
+  {% if orders %}
+  {% for order in orders %}
+  <div class="order-card">
+    <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
+      <div>
+        <div class="d-flex align-items-center gap-2 mb-1">
+          <span class="order-id">#{{ order.id }}</span>
+          <span class="order-ref">{{ order.reference }}</span>
+        </div>
+        <div class="order-date">
+          <i class="fa fa-calendar-alt me-1"></i>{{ order.created_at|date:"d/m/Y H:i" }}
+          &nbsp;·&nbsp;
+          <span class="order-items-count"><i class="fa fa-box me-1"></i>{{ order.items.count }} producto{{ order.items.count|pluralize:"s" }}</span>
+        </div>
+      </div>
+      <div class="d-flex align-items-center gap-3 flex-wrap">
+        <span class="status-badge" style="background:{{ order.status_color }}20;color:{{ order.status_color }};border:1px solid {{ order.status_color }}40;">
+          {{ order.get_status_display }}
+        </span>
+        <div class="text-end">
+          <div class="order-total">${{ order.total_price|floatformat:0 }}</div>
+          {% if order.shipping_cost == 0 %}<div style="font-size:.7rem;color:#27ae60;">Envío gratis</div>{% endif %}
+        </div>
+        <a href="{% url 'orders:order_detail' pk=order.pk %}" class="btn-detail">
+          <i class="fa fa-eye me-1"></i>Ver detalle
+        </a>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+
+  {% else %}
+  <div class="empty-state">
+    <i class="fa fa-box-open empty-icon"></i>
+    <h4 style="font-family:'Rajdhani',sans-serif;color:var(--ares-white);font-size:1.4rem;letter-spacing:1px;margin-bottom:.6rem;">Aún no tienes pedidos</h4>
+    <p style="color:var(--ares-silver);max-width:400px;margin:0 auto 2rem;">Explora nuestro catálogo de equipos de seguridad y realiza tu primer pedido.</p>
+    <a href="{% url 'catalog:product_list' %}" style="background:var(--ares-accent);color:var(--ares-black);padding:.75rem 2rem;border-radius:2px;text-decoration:none;font-family:'Rajdhani',sans-serif;font-weight:700;letter-spacing:2px;text-transform:uppercase;">
+      <i class="fa fa-store me-2"></i>Ver catálogo
+    </a>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

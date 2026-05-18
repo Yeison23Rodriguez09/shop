@@ -1,0 +1,134 @@
+{% extends "base.html" %}
+{% block title %}Método de pago — Nexo YR Secure{% endblock %}
+
+{% block extra_css %}
+<style>
+  .checkout-wrap{padding:2.5rem 0 4rem;}
+  .checkout-steps{display:flex;gap:0;margin-bottom:2.5rem;border-bottom:1px solid var(--ares-steel);padding-bottom:1rem;}
+  .step{display:flex;align-items:center;gap:.5rem;font-size:.8rem;letter-spacing:1px;text-transform:uppercase;color:var(--ares-steel);}
+  .step.active{color:var(--ares-accent);}
+  .step.done{color:var(--ares-silver);}
+  .step-num{width:24px;height:24px;border-radius:50%;border:1px solid currentColor;display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:700;}
+  .step-sep{flex:1;height:1px;background:var(--ares-steel);margin:0 .6rem;}
+  .form-section{background:var(--ares-gray);border:1px solid var(--ares-steel);border-radius:4px;padding:2rem;}
+  .form-section h4{font-family:'Rajdhani',sans-serif;font-size:1.1rem;font-weight:700;color:var(--ares-white);letter-spacing:1px;text-transform:uppercase;margin-bottom:1.2rem;padding-bottom:.6rem;border-bottom:1px solid var(--ares-steel);}
+  .payment-option{border:1px solid var(--ares-steel);border-radius:4px;padding:1rem 1.2rem;margin-bottom:.7rem;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:1rem;}
+  .payment-option:hover{border-color:var(--ares-accent);}
+  .payment-option input[type="radio"]{accent-color:var(--ares-accent);width:18px;height:18px;}
+  .payment-option input[type="radio"]:checked ~ .pay-label{color:var(--ares-white);}
+  .payment-option:has(input:checked){border-color:var(--ares-accent);background:rgba(200,164,90,.05);}
+  .pay-label{flex:1;}
+  .pay-name{display:block;font-weight:600;color:var(--ares-light);font-size:.95rem;}
+  .pay-desc{display:block;color:var(--ares-silver);font-size:.78rem;margin-top:.15rem;}
+  .pay-badge{font-size:.65rem;letter-spacing:1px;text-transform:uppercase;background:rgba(200,164,90,.15);color:var(--ares-accent);padding:.2rem .5rem;border-radius:2px;white-space:nowrap;}
+  .address-review{background:var(--ares-mid);border:1px solid var(--ares-steel);border-radius:4px;padding:1rem 1.2rem;margin-bottom:1.5rem;}
+  .address-review h6{font-family:'Rajdhani',sans-serif;font-size:.85rem;font-weight:700;color:var(--ares-silver);letter-spacing:1px;text-transform:uppercase;margin-bottom:.5rem;}
+  .address-review p{color:var(--ares-light);font-size:.88rem;margin:0;}
+  .summary-box{background:var(--ares-gray);border:1px solid var(--ares-steel);border-radius:4px;padding:1.2rem;}
+  .summary-box h5{font-family:'Rajdhani',sans-serif;font-size:1rem;font-weight:700;color:var(--ares-white);letter-spacing:1px;text-transform:uppercase;margin-bottom:1rem;}
+  .s-row{display:flex;justify-content:space-between;padding:.4rem 0;border-bottom:1px solid rgba(255,255,255,.05);font-size:.85rem;}
+  .s-row:last-child{border:none;}
+  .s-label{color:var(--ares-silver);}
+  .s-value{color:var(--ares-white);font-family:'Rajdhani',sans-serif;font-weight:700;}
+  .btn-pay{width:100%;padding:.85rem;background:var(--ares-accent);color:var(--ares-black);font-family:'Rajdhani',sans-serif;font-weight:700;font-size:1.05rem;letter-spacing:2px;text-transform:uppercase;border:none;border-radius:2px;cursor:pointer;transition:background .2s;margin-top:1rem;}
+  .btn-pay:hover{background:#d4ae6a;}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container checkout-wrap">
+  <!-- Pasos -->
+  <div class="checkout-steps">
+    <div class="step done"><div class="step-num"><i class="fa fa-check" style="font-size:.6rem"></i></div><span>Dirección</span></div>
+    <div class="step-sep"></div>
+    <div class="step active"><div class="step-num">2</div><span>Pago</span></div>
+    <div class="step-sep"></div>
+    <div class="step"><div class="step-num">3</div><span>Confirmación</span></div>
+  </div>
+
+  <div class="row g-4">
+    <div class="col-lg-8">
+      <!-- Dirección confirmada -->
+      <div class="address-review">
+        <h6><i class="fa fa-map-marker-alt me-1" style="color:var(--ares-accent)"></i>Entrega en</h6>
+        <p>{{ address.name }} · {{ address.phone }}</p>
+        <p>{{ address.address }}, {{ address.city }}, {{ address.department }}</p>
+        <a href="{% url 'orders:checkout_address' %}" style="font-size:.78rem;color:var(--ares-accent);text-decoration:none;">
+          <i class="fa fa-edit me-1"></i>Cambiar dirección
+        </a>
+      </div>
+
+      <!-- Método de pago -->
+      <div class="form-section">
+        <h4><i class="fa fa-credit-card me-2" style="color:var(--ares-accent)"></i>Método de pago</h4>
+        <form method="post" id="payment-form">
+          {% csrf_token %}
+          <div class="payment-option">
+            <input type="radio" name="payment_method" value="wompi" id="pay-wompi" checked>
+            <label for="pay-wompi" class="pay-label">
+              <span class="pay-name">Wompi</span>
+              <span class="pay-desc">Tarjeta crédito/débito · PSE · Nequi · Bancolombia</span>
+            </label>
+            <span class="pay-badge">Recomendado</span>
+          </div>
+          <div class="payment-option">
+            <input type="radio" name="payment_method" value="payu" id="pay-payu">
+            <label for="pay-payu" class="pay-label">
+              <span class="pay-name">PayU</span>
+              <span class="pay-desc">Tarjeta crédito/débito · PSE · Efecty · Baloto</span>
+            </label>
+          </div>
+          <div class="payment-option">
+            <input type="radio" name="payment_method" value="mercadopago" id="pay-mp">
+            <label for="pay-mp" class="pay-label">
+              <span class="pay-name">MercadoPago</span>
+              <span class="pay-desc">Tarjeta · PSE · Efectivo en corresponsales</span>
+            </label>
+          </div>
+          <div class="payment-option">
+            <input type="radio" name="payment_method" value="transfer" id="pay-transfer">
+            <label for="pay-transfer" class="pay-label">
+              <span class="pay-name">Transferencia bancaria</span>
+              <span class="pay-desc">Recibirás los datos por correo. El pedido se confirma al verificar el pago.</span>
+            </label>
+          </div>
+
+          <button type="submit" class="btn-pay" id="pay-btn">
+            <i class="fa fa-lock me-2"></i>Confirmar y pagar ${{ total|floatformat:0 }}
+          </button>
+          <p style="text-align:center;font-size:.73rem;color:var(--ares-silver);margin-top:.7rem;">
+            <i class="fa fa-shield-alt me-1"></i>Al continuar aceptas nuestros términos y condiciones.
+          </p>
+        </form>
+      </div>
+    </div>
+
+    <!-- Resumen del pedido -->
+    <div class="col-lg-4">
+      <div class="summary-box">
+        <h5>Tu pedido</h5>
+        {% for item in cart_items %}
+        <div class="s-row">
+          <span class="s-label">{{ item.product.name|truncatechars:28 }} ×{{ item.quantity }}</span>
+          <span class="s-value">${{ item.total_price|floatformat:0 }}</span>
+        </div>
+        {% endfor %}
+        <div class="s-row" style="margin-top:.5rem;padding-top:.6rem;border-top:1px solid var(--ares-steel) !important;">
+          <span class="s-label">Subtotal</span>
+          <span class="s-value">${{ subtotal|floatformat:0 }}</span>
+        </div>
+        <div class="s-row">
+          <span class="s-label">Envío</span>
+          <span class="s-value" style="color:{% if shipping == 0 %}#27ae60{% else %}var(--ares-accent){% endif %}">
+            {% if shipping == 0 %}GRATIS{% else %}${{ shipping|floatformat:0 }}{% endif %}
+          </span>
+        </div>
+        <div class="s-row" style="padding-top:.6rem;border-top:1px solid var(--ares-steel) !important;">
+          <span class="s-label" style="color:var(--ares-white);font-weight:600;">TOTAL</span>
+          <span class="s-value" style="color:var(--ares-accent);font-size:1.2rem;">${{ total|floatformat:0 }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

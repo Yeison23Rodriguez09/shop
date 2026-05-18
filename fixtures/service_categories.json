@@ -1,0 +1,57 @@
+[
+  {
+    "model": "services.servicecategory",
+    "pk": 1,
+    "fields": {
+      "name": "Instalación",
+      "slug": "instalacion",
+      "description": "Instalación profesional de sistemas de seguridad electrónica.",
+      "icon": "fa-tools",
+      "order": 1
+    }
+  },
+  {
+    "model": "services.servicecategory",
+    "pk": 2,
+    "fields": {
+      "name": "Mantenimiento",
+      "slug": "mantenimiento",
+      "description": "Mantenimiento preventivo y correctivo de sistemas instalados.",
+      "icon": "fa-wrench",
+      "order": 2
+    }
+  },
+  {
+    "model": "services.servicecategory",
+    "pk": 3,
+    "fields": {
+      "name": "Monitoreo",
+      "slug": "monitoreo",
+      "description": "Monitoreo remoto 24/7 de alarmas y cámaras.",
+      "icon": "fa-desktop",
+      "order": 3
+    }
+  },
+  {
+    "model": "services.servicecategory",
+    "pk": 4,
+    "fields": {
+      "name": "Consultoría",
+      "slug": "consultoria",
+      "description": "Auditoría de seguridad y diseño de sistemas personalizados.",
+      "icon": "fa-clipboard-check",
+      "order": 4
+    }
+  },
+  {
+    "model": "services.servicecategory",
+    "pk": 5,
+    "fields": {
+      "name": "Capacitación",
+      "slug": "capacitacion",
+      "description": "Entrenamiento al personal en el uso de sistemas de seguridad.",
+      "icon": "fa-graduation-cap",
+      "order": 5
+    }
+  }
+]

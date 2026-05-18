@@ -1,0 +1,205 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% block title %}Nexo YR Secure{% endblock %} | Seguridad Electrónica</title>
+  <meta name="description" content="Nexo YR Secure - Sistemas de seguridad electrónica profesionales. CCTV, alarmas, control de acceso y redes en Colombia.">
+  <meta name="author" content="Nexo YR Secure">
+  <link rel="icon" type="image/svg+xml" href="{% static 'img/favicon.svg' %}">
+
+  <!-- Bootstrap (grid/utilidades — requerido por el layout) -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Nexo YR Secure — CSS modular (azul marino + cian) -->
+  <link rel="stylesheet" href="{% static 'css/variables.css' %}">
+  <link rel="stylesheet" href="{% static 'css/global.css' %}">
+  <link rel="stylesheet" href="{% static 'css/components.css' %}">
+  <link rel="stylesheet" href="{% static 'css/pages.css' %}">
+
+  {% block extra_css %}{% endblock %}
+</head>
+<body>
+
+<!-- ============================================================
+     NAVBAR — fijo, glass blur, marca Nexo YR Secure (logo + texto)
+     ============================================================ -->
+<nav class="ares-navbar navbar navbar-expand-lg">
+  <div class="container">
+    <a class="ares-brand navbar-logo" href="{% url 'core:home' %}">
+      <img src="{% static 'img/logo.svg' %}" alt="Nexo YR Secure" height="40"
+           onerror="this.style.display='none'">
+      <span class="logo-text">Nexo YR Secure</span>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu"
+            aria-controls="navMenu" aria-expanded="false" aria-label="Abrir menú">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navMenu">
+      <ul class="navbar-nav ms-auto align-items-lg-center">
+        <li class="nav-item"><a class="nav-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}" href="{% url 'core:home' %}">Inicio</a></li>
+
+        <!-- SHOP expandible: PRODUCTOS / SERVICIOS con sus categorías -->
+        <li class="nav-item nav-categories">
+          <a class="nav-link {% if request.resolver_match.namespace == 'catalog' %}active{% endif %}"
+             href="{% url 'catalog:product_list' %}" aria-haspopup="true" aria-expanded="false">
+            Shop <i class="fa fa-chevron-down ms-1" style="font-size:.65rem"></i>
+          </a>
+          <ul class="menu-categorias" role="menu">
+            <!-- PRODUCTOS -->
+            <li class="menu-item" role="none">
+              <a href="{% url 'catalog:product_list' %}?tipo=product" role="menuitem">
+                <span><i class="fa fa-box me-2"></i>Productos</span>
+                {% if nav_product_categories %}<i class="fa fa-chevron-right chevron"></i>{% endif %}
+              </a>
+              {% if nav_product_categories %}
+              <ul class="submenu" role="menu">
+                {% for cat in nav_product_categories %}
+                <li role="none">
+                  <a href="{% url 'catalog:product_list' %}?tipo=product&categoria={{ cat.slug }}" role="menuitem">
+                    {% if cat.icon %}<i class="fa {{ cat.icon }} me-2"></i>{% endif %}{{ cat.name }}
+                  </a>
+                </li>
+                {% endfor %}
+              </ul>
+              {% endif %}
+            </li>
+            <!-- SERVICIOS -->
+            <li class="menu-item" role="none">
+              <a href="{% url 'catalog:product_list' %}?tipo=service" role="menuitem">
+                <span><i class="fa fa-tools me-2"></i>Servicios</span>
+                {% if nav_service_categories %}<i class="fa fa-chevron-right chevron"></i>{% endif %}
+              </a>
+              {% if nav_service_categories %}
+              <ul class="submenu" role="menu">
+                {% for cat in nav_service_categories %}
+                <li role="none">
+                  <a href="{% url 'catalog:product_list' %}?tipo=service&categoria={{ cat.slug }}" role="menuitem">
+                    {% if cat.icon %}<i class="fa {{ cat.icon }} me-2"></i>{% endif %}{{ cat.name }}
+                  </a>
+                </li>
+                {% endfor %}
+              </ul>
+              {% endif %}
+            </li>
+          </ul>
+        </li>
+
+        <li class="nav-item"><a class="nav-link {% if request.resolver_match.url_name == 'contact' %}active{% endif %}" href="{% url 'core:contact' %}">Contacto</a></li>
+
+        <!-- Carrito (ícono + contador) -->
+        <li class="nav-item nav-cart ms-lg-2">
+          <a class="nav-link nav-cart-link" href="{% url 'cart:cart_detail' %}" title="Mi carrito" aria-label="Mi carrito">
+            <i class="fa fa-shopping-cart"></i>
+            {% if cart_count %}<span class="cart-badge">{{ cart_count }}</span>{% endif %}
+          </a>
+        </li>
+
+        <!-- Usuario (perfil si logueado, login si no) -->
+        {% if user.is_authenticated %}
+        <li class="nav-item nav-user ms-lg-2">
+          <a class="nav-link nav-user-link" href="{% url 'users:profile' %}" aria-haspopup="true" aria-expanded="false">
+            <i class="fa fa-user-circle me-1"></i>
+            <span class="d-none d-lg-inline">{{ user.first_name|default:user.email|truncatechars:18 }}</span>
+            <i class="fa fa-chevron-down ms-1" style="font-size:.65rem"></i>
+          </a>
+          <ul class="user-menu" role="menu">
+            <li><a href="{% url 'users:profile' %}" role="menuitem"><i class="fa fa-user me-2"></i>Mi cuenta</a></li>
+            <li><a href="{% url 'users:profile_edit' %}" role="menuitem"><i class="fa fa-pen me-2"></i>Editar perfil</a></li>
+            <li><a href="{% url 'orders:order_list' %}" role="menuitem"><i class="fa fa-box me-2"></i>Mis pedidos</a></li>
+            <li><a href="{% url 'cart:cart_detail' %}" role="menuitem"><i class="fa fa-shopping-cart me-2"></i>Mi carrito</a></li>
+            <li class="user-menu-sep"></li>
+            <li>
+              <form method="post" action="{% url 'account_logout' %}" class="logout-form">
+                {% csrf_token %}
+                <button type="submit" class="user-menu-logout"><i class="fa fa-sign-out-alt me-2"></i>Cerrar sesión</button>
+              </form>
+            </li>
+          </ul>
+        </li>
+        {% else %}
+        <li class="nav-item ms-lg-2"><a class="btn-ares-outline" href="{% url 'account_login' %}">Iniciar sesión</a></li>
+        <li class="nav-item ms-lg-2 mt-2 mt-lg-0"><a class="btn-ares" href="{% url 'account_signup' %}">Registrarse</a></li>
+        {% endif %}
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- MENSAJES FLASH -->
+{% if messages %}
+<div class="container mt-3">
+  {% for msg in messages %}
+  <div class="{% if msg.tags == 'success' %}alert-ok{% else %}alert-err{% endif %} mb-2">
+    <i class="fa {% if msg.tags == 'success' %}fa-check-circle{% else %}fa-exclamation-circle{% endif %} me-2"></i>{{ msg }}
+  </div>
+  {% endfor %}
+</div>
+{% endif %}
+
+<!-- CONTENIDO DE PÁGINA -->
+<main>{% block content %}{% endblock %}</main>
+
+<!-- ============================================================
+     FOOTER — 3 columnas: marca | links | contacto
+     ============================================================ -->
+<footer class="ares-footer">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-lg-4">
+        <div class="ares-brand navbar-logo mb-3 d-inline-flex">
+          <img src="{% static 'img/logo.svg' %}" alt="Nexo YR Secure" height="36" onerror="this.style.display='none'">
+          <span class="logo-text">Nexo YR Secure</span>
+        </div>
+        <p>Soluciones profesionales en seguridad electrónica. Protegemos lo que más importa, con tecnología de las mejores marcas.</p>
+        <div class="footer-social">
+          <a href="https://wa.me/573114879338" target="_blank" rel="noopener" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+          <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+        </div>
+      </div>
+      <div class="col-lg-2 col-6">
+        <h6>Productos</h6>
+        <a href="{% url 'catalog:lista_productos' %}">Ver catálogo</a>
+        {% for cat in menu_categories|slice:":4" %}
+        <a href="{% url 'catalog:product_by_category' category_slug=cat.slug %}">{{ cat.name }}</a>
+        {% endfor %}
+      </div>
+      <div class="col-lg-2 col-6">
+        <h6>Servicios</h6>
+        <a href="{% url 'catalog:product_list' %}?tipo=service">Ver servicios</a>
+        {% for sc in menu_service_categories %}
+          {% for svc in sc.services_active|slice:":4" %}
+          <a href="{% url 'catalog:product_detail' slug=svc.slug %}">{{ svc.name }}</a>
+          {% endfor %}
+        {% endfor %}
+      </div>
+      <div class="col-lg-4">
+        <h6>Contacto</h6>
+        <p><i class="fa fa-map-marker-alt me-2 text-accent"></i>Colombia</p>
+        <p class="mt-1"><i class="fab fa-whatsapp me-2 text-accent"></i>+57 311 487 9338</p>
+        <p class="mt-1"><i class="fa fa-envelope me-2 text-accent"></i>info@nexoyrsecure.com</p>
+        <a href="{% url 'core:contact' %}" class="btn-ares mt-3">Solicitar cotización</a>
+      </div>
+    </div>
+    <div class="footer-copy">© 2024 Nexo YR Secure. Todos los derechos reservados. | Bogotá, Colombia</div>
+  </div>
+</footer>
+
+<!-- BOTÓN WHATSAPP FLOTANTE (todas las páginas) -->
+<a class="wa-float"
+   href="https://wa.me/573114879338?text=Hola%20Nexo%20YR%20Secure%2C%20quiero%20más%20información"
+   target="_blank" rel="noopener" aria-label="Escríbenos por WhatsApp">
+  <i class="fab fa-whatsapp"></i>
+</a>
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="{% static 'js/utils.js' %}"></script>
+<script src="{% static 'js/app.js' %}"></script>
+{% block extra_js %}{% endblock %}
+</body>
+</html>

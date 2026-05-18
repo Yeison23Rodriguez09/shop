@@ -1,0 +1,231 @@
+{% extends "base.html" %}
+
+{% block title %}{{ product.name }} — Nexo YR Secure{% endblock %}
+
+{% block content %}
+<div class="ares-page-header">
+  <div class="container">
+    <p style="color:var(--ares-silver);font-size:.8rem;margin-bottom:.3rem">
+      <a href="{% url 'catalog:lista_productos' %}">Catálogo</a>
+      {% if product.category %} / <a href="{% url 'catalog:product_by_category' category_slug=product.category.slug %}">{{ product.category }}</a>{% endif %}
+    </p>
+    <h1>{{ product.name }}</h1>
+  </div>
+</div>
+
+<div class="container pb-5">
+  <div class="row g-5">
+
+    <!-- GALERIA -->
+    <div class="col-lg-5">
+      <div class="gallery-main mb-2">
+        {% if all_images %}
+          <img id="gallery-main-img" src="{{ MEDIA_URL }}{{ all_images.0 }}" alt="{{ product.name }}" class="img-fluid w-100" style="border-radius:4px;border:1px solid var(--ares-steel);">
+        {% elif product.get_image %}
+          <img id="gallery-main-img" src="{{ product.get_image }}" alt="{{ product.name }}" class="img-fluid w-100" style="border-radius:4px;border:1px solid var(--ares-steel);">
+        {% else %}
+          <div class="img-placeholder" style="height:360px;font-size:4rem;border:1px solid var(--ares-steel);border-radius:4px"><i class="fa fa-camera-retro"></i></div>
+        {% endif %}
+      </div>
+      <div id="gallery-thumbs" class="d-flex gap-2 flex-wrap">
+        {% for img in all_images %}
+          <img src="{{ MEDIA_URL }}{{ img }}" data-src="{{ MEDIA_URL }}{{ img }}" data-name="{{ img }}"
+               class="gallery-thumb"
+               style="width:64px;height:64px;object-fit:cover;border:1px solid var(--ares-steel);border-radius:3px;cursor:pointer;opacity:.7;transition:opacity .15s">
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- DETALLES -->
+    <div class="col-lg-7">
+      {% if product.brand %}<p class="text-accent mb-1" style="font-size:.8rem;letter-spacing:2px;text-transform:uppercase">{{ product.brand }}</p>{% endif %}
+      <h2 style="font-family:'Rajdhani',sans-serif;font-size:2rem;font-weight:700;color:var(--ares-white)">{{ product.name }}</h2>
+      {% if product.model_number %}<p class="text-silver mb-3" style="font-size:.85rem">Referencia: <strong>{{ product.model_number }}</strong></p>{% endif %}
+
+      {% if product.is_service %}
+      <div class="mb-3">
+        <span class="precio-cotizar" style="font-size:1.6rem;">
+          <i class="fa fa-tag me-2"></i>A cotizar
+        </span>
+      </div>
+      {% else %}
+      <div class="ares-price mb-3" style="font-size:2rem">
+        <span id="pdp-price">${{ product.price|floatformat:0 }}</span>
+        <small style="font-size:.9rem;color:var(--ares-silver)">COP</small>
+      </div>
+      {% endif %}
+
+      {% if variants %}
+      <div class="mb-3" id="variant-selector">
+        <label for="variant-select" class="form-label" style="font-size:.78rem;letter-spacing:1.5px">Color / Variante</label>
+        <select id="variant-select" class="form-select" style="max-width:320px">
+          {% for v in variants %}
+            <option value="{{ v.id }}" data-color="{{ v.color }}" data-price="{{ v.price }}" data-stock="{{ v.stock }}" data-sku="{{ v.sku }}">
+              {{ v.color|default:"Default" }} — ${{ v.price|floatformat:0 }} {% if v.stock == 0 %}(agotado){% endif %}
+            </option>
+          {% endfor %}
+        </select>
+        <div class="mt-1" style="font-size:.78rem;color:var(--ares-silver)">
+          SKU: <span id="pdp-sku">{{ variants.0.sku }}</span>
+        </div>
+      </div>
+      {% endif %}
+
+      <p style="color:var(--ares-light);line-height:1.7">{{ product.description }}</p>
+
+      <hr class="ares my-4">
+
+      <!-- ESPECIFICACIONES -->
+      {% if product.resolution or product.connectivity or product.power_supply or product.warranty_months %}
+      <div style="background:var(--ares-gray);border:1px solid var(--ares-steel);border-radius:4px;padding:1.2rem;margin-bottom:1.5rem;">
+        <h6 style="font-family:'Rajdhani',sans-serif;font-size:.75rem;letter-spacing:2px;text-transform:uppercase;color:var(--ares-accent);margin-bottom:1rem">Especificaciones técnicas</h6>
+        <div class="row g-2" style="font-size:.85rem">
+          {% if product.resolution %}<div class="col-6"><span class="text-silver">Resolución:</span> {{ product.resolution }}</div>{% endif %}
+          {% if product.connectivity %}<div class="col-6"><span class="text-silver">Conectividad:</span> {{ product.connectivity }}</div>{% endif %}
+          {% if product.power_supply %}<div class="col-6"><span class="text-silver">Alimentación:</span> {{ product.power_supply }}</div>{% endif %}
+          {% if product.warranty_months %}<div class="col-6"><span class="text-silver">Garantía:</span> {{ product.warranty_label }}</div>{% endif %}
+        </div>
+        {% if product.datasheet_url %}
+        <a href="{{ product.datasheet_url }}" target="_blank" class="btn-ares-outline mt-3 d-inline-block" style="font-size:.75rem"><i class="fa fa-file-pdf me-1"></i>Ver ficha técnica</a>
+        {% endif %}
+      </div>
+      {% endif %}
+
+      <!-- ESPECIFICACIONES JSON (servicios y productos con specs) -->
+      {% if product.specs_dict %}
+      <div style="background:var(--ares-gray);border:1px solid var(--ares-steel);border-radius:4px;padding:1.2rem;margin-bottom:1.5rem;">
+        <h6 style="font-family:'Rajdhani',sans-serif;font-size:.75rem;letter-spacing:2px;text-transform:uppercase;color:var(--ares-accent);margin-bottom:1rem">
+          {% if product.is_service %}Detalles del servicio{% else %}Especificaciones{% endif %}
+        </h6>
+        <div class="row g-2" style="font-size:.85rem">
+          {% for clave, valor in product.specs_dict.items %}
+          <div class="col-md-6">
+            <span class="text-silver text-capitalize">{{ clave }}:</span> {{ valor }}
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      {% endif %}
+
+      <!-- ACCIONES -->
+      {% if product.is_service %}
+      <!-- SERVICIO: solicitar cotización por WhatsApp -->
+      <a href="https://wa.me/573114879338?text=Hola%20Nexo%20YR%20Secure%2C%20quiero%20cotizar%20el%20servicio%3A%20{{ product.name|urlencode }}"
+         target="_blank" rel="noopener" class="btn-cotizar" style="max-width:380px;font-size:1.05rem;padding:.95rem;">
+        <i class="fab fa-whatsapp me-2"></i>SOLICITAR COTIZACIÓN
+      </a>
+      <p class="mt-3" style="font-size:.82rem;color:var(--ares-silver)">
+        <i class="fa fa-headset text-accent me-1"></i>Un asesor te responde por WhatsApp en minutos.
+      </p>
+      {% else %}
+      <!-- PRODUCTO: añadir al carrito -->
+      <form id="add-to-cart-form" action="{% url 'cart:add_to_cart' product.id %}" method="post" class="d-flex gap-2 align-items-center flex-wrap">
+        {% csrf_token %}
+        <input type="hidden" name="variant_id" id="pdp-variant-id" value="{% if variants %}{{ variants.0.id }}{% endif %}">
+        <input type="number" name="quantity" id="pdp-qty" value="1" min="1"
+               max="{% if variants %}{{ variants.0.stock }}{% else %}{{ product.stock }}{% endif %}"
+               class="form-control" style="width:80px">
+        <button type="submit" id="pdp-add-btn" class="btn-ares"
+                {% if variants %}{% if variants.0.stock == 0 %}disabled{% endif %}{% else %}{% if product.stock == 0 %}disabled{% endif %}{% endif %}>
+          <i class="fa fa-cart-plus me-2"></i>Añadir al carrito
+        </button>
+        {% if product.requires_installation %}
+        <a href="{% url 'catalog:product_list' %}?tipo=service" class="btn-ares-outline"><i class="fa fa-tools me-1"></i>Solicitar instalación</a>
+        {% endif %}
+      </form>
+
+      <div class="mt-3" style="font-size:.82rem;color:var(--ares-silver)">
+        <span id="pdp-stock-msg" class="me-3">
+          {% if variants %}
+            {% if variants.0.stock > 0 %}<i class="fa fa-check-circle text-accent me-1"></i>Disponible (<span id="pdp-stock-num">{{ variants.0.stock }}</span> uds.){% else %}<span style="color:var(--ares-red)"><i class="fa fa-times-circle me-1"></i>Sin stock</span>{% endif %}
+          {% else %}
+            {% if product.stock > 0 %}<i class="fa fa-check-circle text-accent me-1"></i>Disponible (<span id="pdp-stock-num">{{ product.stock }}</span> uds.){% else %}<span style="color:var(--ares-red)"><i class="fa fa-times-circle me-1"></i>Sin stock</span>{% endif %}
+          {% endif %}
+        </span>
+        <span><i class="fa fa-truck text-accent me-1"></i>Envío a todo el país</span>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% if variants %}
+{{ variants_payload|json_script:"variants-data" }}
+<script>
+(function(){
+  const data = JSON.parse(document.getElementById('variants-data').textContent);
+  const sel = document.getElementById('variant-select');
+  const priceEl = document.getElementById('pdp-price');
+  const stockNum = document.getElementById('pdp-stock-num');
+  const stockMsg = document.getElementById('pdp-stock-msg');
+  const skuEl = document.getElementById('pdp-sku');
+  const variantInput = document.getElementById('pdp-variant-id');
+  const qtyInput = document.getElementById('pdp-qty');
+  const addBtn = document.getElementById('pdp-add-btn');
+  const mainImg = document.getElementById('gallery-main-img');
+  const thumbs = Array.from(document.querySelectorAll('#gallery-thumbs .gallery-thumb'));
+  const MEDIA_URL = '{{ MEDIA_URL }}';
+
+  function fmtCOP(n){ return '$' + Math.round(n).toLocaleString('es-CO').replace(/,/g, '.'); }
+
+  function applyVariant(v){
+    priceEl.textContent = fmtCOP(v.price);
+    skuEl.textContent = v.sku;
+    variantInput.value = v.id;
+    qtyInput.max = Math.max(1, v.stock);
+    if (v.stock <= 0){
+      qtyInput.value = 0; qtyInput.disabled = true;
+      addBtn.disabled = true;
+      stockMsg.innerHTML = '<span style="color:var(--ares-red)"><i class="fa fa-times-circle me-1"></i>Sin stock</span>';
+    } else {
+      qtyInput.disabled = false;
+      addBtn.disabled = false;
+      qtyInput.value = Math.min(parseInt(qtyInput.value)||1, v.stock);
+      stockMsg.innerHTML = '<i class="fa fa-check-circle text-accent me-1"></i>Disponible (<span id="pdp-stock-num">'+v.stock+'</span> uds.)';
+    }
+    // Filtrar imagenes por color (match en filename). Si no hay matches, mostrar todas.
+    const wanted = (v.images || []).map(p => MEDIA_URL + p);
+    const visible = new Set(wanted.length ? wanted : thumbs.map(t => t.dataset.src));
+    let firstVisible = null;
+    thumbs.forEach(t => {
+      const show = visible.has(t.dataset.src);
+      t.style.display = show ? '' : 'none';
+      if (show && !firstVisible) firstVisible = t.dataset.src;
+    });
+    if (firstVisible && mainImg) mainImg.src = firstVisible;
+  }
+
+  sel.addEventListener('change', () => {
+    const v = data.find(x => String(x.id) === sel.value);
+    if (v) applyVariant(v);
+  });
+  // Aplicar la inicial.
+  if (data.length) applyVariant(data[0]);
+
+  // Click en thumb cambia la imagen principal.
+  thumbs.forEach(t => {
+    t.addEventListener('click', () => {
+      mainImg.src = t.dataset.src;
+      thumbs.forEach(x => x.style.opacity = '0.7');
+      t.style.opacity = '1';
+    });
+  });
+})();
+</script>
+{% else %}
+<script>
+(function(){
+  // Sin variantes: solo gestionar thumbs.
+  const mainImg = document.getElementById('gallery-main-img');
+  if (!mainImg) return;
+  document.querySelectorAll('#gallery-thumbs .gallery-thumb').forEach(t => {
+    t.addEventListener('click', () => {
+      mainImg.src = t.dataset.src;
+      document.querySelectorAll('#gallery-thumbs .gallery-thumb').forEach(x => x.style.opacity='0.7');
+      t.style.opacity='1';
+    });
+  });
+})();
+</script>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,11 @@
+{
+  "slug": "hikvision-ds-k2604",
+  "name": "Controlador IP 4 Puertas Hikvision DS-K2604",
+  "price": 1450000,
+  "stock": 7,
+  "sku": "DS-K2604",
+  "brand": "Hikvision",
+  "description": "4 lectores Wiegand, hasta 100 000 tarjetas y 300 000 eventos. TCP/IP y RS-485, iVMS-4200 / HikCentral. PoE+.",
+  "images": [],
+  "active": true
+}

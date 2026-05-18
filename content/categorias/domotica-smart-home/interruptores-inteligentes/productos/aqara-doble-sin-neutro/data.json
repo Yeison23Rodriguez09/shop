@@ -1,0 +1,11 @@
+{
+  "slug": "aqara-doble-sin-neutro",
+  "name": "Interruptor Zigbee Aqara Doble Canal sin Neutro",
+  "price": 165000,
+  "stock": 18,
+  "sku": "AQ-D2-NN",
+  "brand": "Aqara",
+  "description": "Sin neutro, hasta 1100 W. Doble canal, requiere hub Aqara. HomeKit y voz.",
+  "images": [],
+  "active": true
+}

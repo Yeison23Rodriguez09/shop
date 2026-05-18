@@ -1,0 +1,11 @@
+{
+  "slug": "philips-hue-outdoor-pir",
+  "name": "Sensor de Movimiento Philips Hue Outdoor",
+  "price": 285000,
+  "stock": 14,
+  "sku": "HUE-OUT-PIR",
+  "brand": "Philips",
+  "description": "PIR exterior Zigbee a puente Hue. 12 m, 160°, también temp y luminosidad. Notificaciones y escenas.",
+  "images": [],
+  "active": true
+}

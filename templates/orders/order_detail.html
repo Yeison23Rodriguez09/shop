@@ -1,0 +1,163 @@
+{% extends "base.html" %}
+{% block title %}Pedido #{{ order.id }} — Nexo YR Secure{% endblock %}
+
+{% block extra_css %}
+<style>
+  .order-wrap{padding:2rem 0 4rem;}
+  .page-title{font-family:'Rajdhani',sans-serif;font-size:1.7rem;font-weight:700;color:var(--ares-white);letter-spacing:2px;text-transform:uppercase;}
+  .panel{background:var(--ares-gray);border:1px solid var(--ares-steel);border-radius:4px;padding:1.5rem;margin-bottom:1.2rem;}
+  .panel-title{font-family:'Rajdhani',sans-serif;font-size:.9rem;font-weight:700;color:var(--ares-silver);letter-spacing:2px;text-transform:uppercase;margin-bottom:1rem;padding-bottom:.5rem;border-bottom:1px solid var(--ares-steel);}
+  .info-row{display:flex;justify-content:space-between;align-items:flex-start;padding:.45rem 0;border-bottom:1px solid rgba(255,255,255,.04);font-size:.88rem;gap:1rem;}
+  .info-row:last-child{border:none;}
+  .i-label{color:var(--ares-silver);flex-shrink:0;}
+  .i-value{color:var(--ares-light);text-align:right;}
+  .status-badge{display:inline-block;padding:.25rem .75rem;border-radius:2px;font-size:.7rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;}
+  .item-row{display:flex;justify-content:space-between;align-items:center;padding:.6rem 0;border-bottom:1px solid rgba(255,255,255,.04);gap:1rem;}
+  .item-row:last-child{border:none;}
+  .item-name{color:var(--ares-light);font-size:.9rem;}
+  .item-meta{color:var(--ares-silver);font-size:.75rem;}
+  .item-price{color:var(--ares-accent);font-family:'Rajdhani',sans-serif;font-weight:700;white-space:nowrap;}
+  .log-entry{display:flex;gap:1rem;padding:.6rem 0;border-bottom:1px solid rgba(255,255,255,.04);font-size:.83rem;}
+  .log-entry:last-child{border:none;}
+  .log-dot{width:10px;height:10px;border-radius:50%;background:var(--ares-accent);flex-shrink:0;margin-top:.3rem;}
+  .log-time{color:var(--ares-steel);white-space:nowrap;font-size:.75rem;}
+  .log-text{color:var(--ares-silver);flex:1;}
+  .log-text strong{color:var(--ares-light);}
+  .btn-back{display:inline-block;padding:.5rem 1.2rem;border:1px solid var(--ares-steel);color:var(--ares-silver);border-radius:2px;text-decoration:none;font-size:.85rem;transition:all .2s;}
+  .btn-back:hover{border-color:var(--ares-accent);color:var(--ares-accent);}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container order-wrap">
+  <div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-2">
+    <div>
+      <h1 class="page-title mb-0">Pedido #{{ order.id }}</h1>
+      <p style="color:var(--ares-silver);font-size:.8rem;letter-spacing:2px;margin-top:.2rem;">{{ order.reference }}</p>
+    </div>
+    <span class="status-badge" style="background:{{ order.status_color }}20;color:{{ order.status_color }};border:1px solid {{ order.status_color }}40;">
+      {{ order.get_status_display }}
+    </span>
+  </div>
+
+  <div class="row g-4">
+    <div class="col-lg-8">
+
+      <!-- Productos -->
+      <div class="panel">
+        <p class="panel-title"><i class="fa fa-box me-2" style="color:var(--ares-accent)"></i>Productos</p>
+        {% for item in order.items.all %}
+        <div class="item-row">
+          <div>
+            <div class="item-name">{{ item.product_name }}</div>
+            {% if item.product_model %}<div class="item-meta">Ref: {{ item.product_model }}</div>{% endif %}
+            <div class="item-meta">Cantidad: {{ item.quantity }}</div>
+          </div>
+          <div class="text-end">
+            <div class="item-price">${{ item.subtotal|floatformat:0 }}</div>
+            <div class="item-meta">${{ item.unit_price|floatformat:0 }} c/u</div>
+          </div>
+        </div>
+        {% endfor %}
+
+        <!-- Totales -->
+        <div style="margin-top:.8rem;padding-top:.8rem;border-top:1px solid var(--ares-steel);">
+          <div class="info-row">
+            <span class="i-label">Subtotal</span>
+            <span class="i-value">${{ order.subtotal|floatformat:0 }}</span>
+          </div>
+          <div class="info-row">
+            <span class="i-label">Envío</span>
+            <span class="i-value" style="color:{% if order.shipping_cost == 0 %}#27ae60{% else %}var(--ares-accent){% endif %}">
+              {% if order.shipping_cost == 0 %}GRATIS{% else %}${{ order.shipping_cost|floatformat:0 }}{% endif %}
+            </span>
+          </div>
+          <div class="info-row" style="border-top:1px solid var(--ares-steel);margin-top:.3rem;padding-top:.6rem;">
+            <span class="i-label" style="color:var(--ares-white);font-weight:600;font-size:.95rem;">TOTAL</span>
+            <span class="i-value" style="color:var(--ares-accent);font-family:'Rajdhani',sans-serif;font-weight:700;font-size:1.2rem;">
+              ${{ order.total_price|floatformat:0 }}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Log de seguimiento -->
+      {% if order.logs.all %}
+      <div class="panel">
+        <p class="panel-title"><i class="fa fa-history me-2" style="color:var(--ares-accent)"></i>Seguimiento del pedido</p>
+        {% for log in order.logs.all %}
+        <div class="log-entry">
+          <div class="log-dot"></div>
+          <div class="log-text">
+            <strong>{{ log.get_new_status_display|default:log.new_status }}</strong>
+            {% if log.note %} — {{ log.note }}{% endif %}
+          </div>
+          <div class="log-time">{{ log.created_at|date:"d/m/Y H:i" }}</div>
+        </div>
+        {% endfor %}
+      </div>
+      {% endif %}
+
+    </div>
+
+    <div class="col-lg-4">
+
+      <!-- Info del pedido -->
+      <div class="panel">
+        <p class="panel-title"><i class="fa fa-info-circle me-2" style="color:var(--ares-accent)"></i>Información</p>
+        <div class="info-row">
+          <span class="i-label">Fecha</span>
+          <span class="i-value">{{ order.created_at|date:"d/m/Y H:i" }}</span>
+        </div>
+        <div class="info-row">
+          <span class="i-label">Método de pago</span>
+          <span class="i-value">{{ order.get_payment_method_display|default:"—" }}</span>
+        </div>
+        {% if order.paid_at %}
+        <div class="info-row">
+          <span class="i-label">Pagado el</span>
+          <span class="i-value" style="color:#27ae60;">{{ order.paid_at|date:"d/m/Y H:i" }}</span>
+        </div>
+        {% endif %}
+        {% if order.payment_id %}
+        <div class="info-row">
+          <span class="i-label">ID transacción</span>
+          <span class="i-value" style="font-size:.75rem;word-break:break-all;">{{ order.payment_id }}</span>
+        </div>
+        {% endif %}
+      </div>
+
+      <!-- Dirección de entrega -->
+      <div class="panel">
+        <p class="panel-title"><i class="fa fa-truck me-2" style="color:var(--ares-accent)"></i>Dirección de entrega</p>
+        <div class="info-row">
+          <span class="i-label">Destinatario</span>
+          <span class="i-value">{{ order.shipping_name }}</span>
+        </div>
+        <div class="info-row">
+          <span class="i-label">Teléfono</span>
+          <span class="i-value">{{ order.shipping_phone }}</span>
+        </div>
+        <div class="info-row">
+          <span class="i-label">Dirección</span>
+          <span class="i-value">{{ order.shipping_address }}</span>
+        </div>
+        <div class="info-row">
+          <span class="i-label">Ciudad</span>
+          <span class="i-value">{{ order.shipping_city }}, {{ order.shipping_department }}</span>
+        </div>
+        {% if order.shipping_notes %}
+        <div class="info-row">
+          <span class="i-label">Nota</span>
+          <span class="i-value" style="color:var(--ares-silver);">{{ order.shipping_notes }}</span>
+        </div>
+        {% endif %}
+      </div>
+
+      <a href="{% url 'orders:order_list' %}" class="btn-back">
+        <i class="fa fa-arrow-left me-1"></i>Mis pedidos
+      </a>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,11 @@
+{
+  "slug": "gira-x1-knx",
+  "name": "Controlador KNX/IP Gira X1",
+  "price": 4850000,
+  "stock": 3,
+  "sku": "GIRA-X1",
+  "brand": "Gira",
+  "description": "Servidor KNX profesional con app Gira Smart Home, Alexa/Google. Programación ETS.",
+  "images": [],
+  "active": true
+}

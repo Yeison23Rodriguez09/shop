@@ -1,0 +1,11 @@
+{
+  "slug": "nxp-ntag216",
+  "name": "Tarjeta NFC NXP NTAG216",
+  "price": 8500,
+  "stock": 150,
+  "sku": "NTAG216",
+  "brand": "NXP",
+  "description": "NFC Forum tipo 2, 888 bytes. Integración con smartphones y sistemas modernos.",
+  "images": [],
+  "active": true
+}
