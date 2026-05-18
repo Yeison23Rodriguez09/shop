@@ -32,7 +32,7 @@ services:
         value: "3.11"
 
       # ── Django ────────────────────────────────────────────────────────────
-      - key: DJANGO_SETTINGS_MODULE
+      - key: 
         value: config.settings.production
       - key: DJANGO_ENV
         value: production
