@@ -1,10 +1,10 @@
-# render.yaml — Configuración de despliegue en Render (Blueprint)
-# ─────────────────────────────────────────────────────
+﻿# render.yaml â€” ConfiguraciÃ³n de despliegue en Render (Blueprint)
+# â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 # Las credenciales sensibles (pagos, email, SECRET_KEY) se configuran
-# desde el panel de Render → Environment, NUNCA en este archivo.
-# ─────────────────────────────────────────────────────
+# desde el panel de Render â†’ Environment, NUNCA en este archivo.
+# â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
-# ── Base de datos PostgreSQL gestionada (plan gratuito) ──────────────────────
+# â”€â”€ Base de datos PostgreSQL gestionada (plan gratuito) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 # Debe ir bajo la clave top-level `databases:` (NO como `type: pserv`, que es
 # un servicio privado, no una base de datos). `fromDatabase` la referencia.
 databases:
@@ -14,7 +14,7 @@ databases:
     user: ares_shop
 
 services:
-  # ── Servidor Web Django ──────────────────────────────────────────────────
+  # â”€â”€ Servidor Web Django â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   - type: web
     name: ares-shop
     runtime: python
@@ -31,7 +31,7 @@ services:
       - key: PYTHON_VERSION
         value: "3.11"
 
-      # ── Django ────────────────────────────────────────────────────────────
+      # â”€â”€ Django â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
       - key: 
         value: config.settings.production
       - key: DJANGO_ENV
@@ -41,23 +41,23 @@ services:
       - key: DJANGO_ALLOWED_HOSTS
         value: ares-shop.onrender.com
 
-      # ── Base de datos (Render inyecta la connection string) ──────────────
+      # â”€â”€ Base de datos (Render inyecta la connection string) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
       - key: DATABASE_URL
         fromDatabase:
           name: ares-shop-db
           property: connectionString
 
-      # ── CORS ──────────────────────────────────────────────────────────────
+      # â”€â”€ CORS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
       - key: CORS_ALLOWED_ORIGINS
         value: https://ares-shop.onrender.com
 
-      # ── Seguridad ─────────────────────────────────────────────────────────
+      # â”€â”€ Seguridad â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
       - key: SECURE_SSL_REDIRECT
         value: "True"
       - key: SECURE_HSTS_SECONDS
         value: "86400"
 
-      # ── Configurar manualmente en el panel de Render → Environment ────────
+      # â”€â”€ Configurar manualmente en el panel de Render â†’ Environment â”€â”€â”€â”€â”€â”€â”€â”€
       # La app NO arranca sin estas (fail-fast intencional en production.py):
       #   EMAIL_HOST_USER, EMAIL_HOST_PASSWORD
       # Recomendadas:
